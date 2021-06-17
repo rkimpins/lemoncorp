@@ -1,0 +1,30 @@
+.portfolio_item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+.container {
+    position: relative;
+}
+
+.gh_mark {
+    max-width: 5%;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    box-shadow: 20px;
+}
+
+.portfolio_item img {
+    width: 100%;
+    height: auto;
+}
+
+.portfolio_item p {
+    max-width: 50%;
+}
