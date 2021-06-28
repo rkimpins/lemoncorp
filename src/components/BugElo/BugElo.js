@@ -19,7 +19,9 @@ class BugElo extends Component {
 				{ name:"Stag Beetle", trueElo: 1500, currentElo: startingElo },
 				{ name:"American Carrion Beetle", trueElo: 1300, currentElo: startingElo },
 				{ name:"Butterfly", trueElo: 500, currentElo: startingElo },
-			]
+			],
+			bugAIndex: 0,
+			bugBIndex: 0,
 
 		}
 	}
@@ -34,7 +36,20 @@ class BugElo extends Component {
 		return 1 / (1 + 10**((ratingB - ratingA)/400))
 	}
 
-	makeBugsFightHandler = () => {
+	chooseBugsHandler = () => {
+		var bugAIndex = Math.floor(Math.random()*this.state.bugs.length);
+		var bugBIndex;
+		do {
+			bugBIndex = Math.floor(Math.random()*this.state.bugs.length);
+		} while (bugAIndex === bugBIndex)
+
+		this.setState({
+			bugAIndex: bugAIndex,
+			bugBIndex: bugBIndex,
+		})
+	}
+
+	makeBugsFight = () => {
 
 	}
 
@@ -66,7 +81,20 @@ class BugElo extends Component {
 		return(
 			<div>
 				<p>BugElo</p>
-				<button>Fight</button>
+				<br/>
+				<li>
+					<p>{this.state.bugs[this.state.bugAIndex].name}</p>
+					<p>{this.state.bugs[this.state.bugAIndex].trueElo}</p>
+					<p>{this.state.bugs[this.state.bugAIndex].currentElo}</p>
+				</li>
+				<li>
+					<p>{this.state.bugs[this.state.bugBIndex].name}</p>
+					<p>{this.state.bugs[this.state.bugBIndex].trueElo}</p>
+					<p>{this.state.bugs[this.state.bugBIndex].currentElo}</p>
+				</li>
+				<br/>
+				<button onClick={this.chooseBugsHandler}>Choose Fighters</button>
+				<button onClick={this.makeBugsFight}>FIGHT!!!</button>
 				{bugs}
 			</div>
 		);
