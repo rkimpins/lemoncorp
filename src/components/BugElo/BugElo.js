@@ -4,6 +4,7 @@ const Bug = require('./Bug.js');
 
 
 const K = 32;
+const maxUpdate = 32;
 
 class BugElo extends Component {
 
@@ -29,6 +30,13 @@ class BugElo extends Component {
 	calculate_new_rating = (score, ratingA, ratingB) => {
 		var newRatingA;
 		newRatingA = ratingA + K * (score - this.calculate_expected_score(ratingA, ratingB))
+		if (newRatingA - ratingA > maxUpdate) {
+			newRatingA = ratingA + maxUpdate;
+		}
+		if (ratingA - newRatingA > maxUpdate) {
+			newRatingA = ratingA - maxUpdate;
+		}
+
 		return newRatingA;
 	}
 
@@ -62,6 +70,7 @@ class BugElo extends Component {
 		} else {
 			score = 0;
 		}
+
 		console.log("score", score)
 		
 		var newRatingA = this.calculate_new_rating(
@@ -86,12 +95,6 @@ class BugElo extends Component {
 
 
 	render() {
-		//var ratingA = 1000;
-		//var ratingB = 2000;
-		//var score = 1; //A won
-
-		//ratingA = this.calculate_new_rating(score, ratingA, ratingB);
-		//ratingB = this.calculate_new_rating(1-score, ratingB, ratingA)
 
 		var bugs = [];
 		var index;
