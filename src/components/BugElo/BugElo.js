@@ -50,26 +50,56 @@ class BugElo extends Component {
 	}
 
 	makeBugsFight = () => {
+		var probAWins = this.calculate_expected_score(
+			this.state.bugs[this.state.bugAIndex].trueElo,
+			this.state.bugs[this.state.bugBIndex].trueElo)
+		console.log("probAWins", probAWins)
+		var score;
+		var randomVal = Math.random();
 
+		if (randomVal < probAWins) {
+			score = 1;
+		} else {
+			score = 0;
+		}
+		console.log("score", score)
+		
+		var newRatingA = this.calculate_new_rating(
+			score,
+			this.state.bugs[this.state.bugAIndex].currentElo,
+			this.state.bugs[this.state.bugBIndex].currentElo,
+		);
+		var newRatingB = this.calculate_new_rating(
+			1 - score,
+			this.state.bugs[this.state.bugBIndex].currentElo,
+			this.state.bugs[this.state.bugAIndex].currentElo,
+		);
+
+		//Update new elo rating
+		let tempBugs = [...this.state.bugs]
+		tempBugs[this.state.bugAIndex].currentElo = newRatingA;
+		tempBugs[this.state.bugBIndex].currentElo = newRatingB;
+		this.setState({
+			bugs: tempBugs,
+		})
 	}
 
 
 	render() {
-		var ratingA = 1000;
-		var ratingB = 2000;
-		var score = 1; //A won
+		//var ratingA = 1000;
+		//var ratingB = 2000;
+		//var score = 1; //A won
 
-		ratingA = this.calculate_new_rating(score, ratingA, ratingB);
-		ratingB = this.calculate_new_rating(1-score, ratingB, ratingA)
+		//ratingA = this.calculate_new_rating(score, ratingA, ratingB);
+		//ratingB = this.calculate_new_rating(1-score, ratingB, ratingA)
 
 		var bugs = [];
-
 		var index;
 		var bug;
 		for (index in this.state.bugs) {
 			bug = this.state.bugs[index];
 			bugs.push(
-				<li>
+				<li key={index}>
 					<p>{bug.name}</p>
 					<p>{bug.trueElo}</p>
 					<p>{bug.currentElo}</p>
