@@ -26,6 +26,7 @@ const NavigationBar = () => {
                     <Nav.Link href="/contact">Contact</Nav.Link>
                     <Nav.Link href="/portfolio">Portfolio</Nav.Link>
                     <Nav.Link href="/war">War</Nav.Link>
+                    <Nav.Link href="/elo">Bug Elo</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
