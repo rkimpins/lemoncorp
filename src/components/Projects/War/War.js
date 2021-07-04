@@ -3,8 +3,8 @@ import BarChart from '../../BarChart/BarChart';
 import Card from 'react-playing-card';
 import classes from './War.module.css';
 
-//import Deck from './Deck';
-const Deck = require('./Deck.js');
+import Deck from './Deck';
+//const Deck = require('./Deck.js');
 
 
 class War extends Component {

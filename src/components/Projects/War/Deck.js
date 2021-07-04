@@ -44,4 +44,4 @@ class Deck{
   }
 };
 
-module.exports = Deck;
+export default Deck;
