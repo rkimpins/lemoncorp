@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 
-const Bug = require('./Bug.js');
-
-
 const K = 32;
 const maxUpdate = 32;
 
