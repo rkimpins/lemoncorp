@@ -1,5 +1,4 @@
 import './App.css';
-import Portfolio from "./components/Portfolio/Portfolio";
 import React, {Component} from 'react';
 import 'react-bootstrap/dist/react-bootstrap.min.js';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -7,6 +6,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './components/Home/Home';
 import About from './components/About/About';
 import Contact from './components/Contact/Contact';
+import Resume from './components/Resume/Resume';
+import Portfolio from "./components/Portfolio/Portfolio";
 import War from './components/Projects/War/War';
 import BugElo from './components/Projects/BugElo/BugElo';
 import Chopsticks from './components/Projects/Chopsticks/Chopsticks';
@@ -22,6 +23,7 @@ class App extends Component {
           <Route exact path="/" component={Home}></Route>
           <Route exact path="/about" component={About}></Route>
           <Route exact path="/contact" component={Contact}></Route>
+          <Route exact path="/resume" component={Resume}></Route>
           <Route exact path="/portfolio" component={Portfolio}></Route>
           <Route exact path="/war" component={War}></Route>
           <Route exact path="/elo" component={BugElo}></Route>
