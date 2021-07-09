@@ -1,9 +1,9 @@
 import React from 'react';
 import PortfolioItem from './PortfolioItem/PortfolioItem';
 
-import event_connect from '../../images/event_connect.png';
-import ishelf from '../../images/ishelf.png';
-import teamwork_dashboard from '../../images/teamwork_dashboard.png';
+import event_connect from '../../images/portfolio/event_connect.png';
+import ishelf from '../../images/portfolio/ishelf.png';
+import teamwork_dashboard from '../../images/portfolio/teamwork_dashboard.png';
 import gh_logo_dark from '../../images/GitHub-Mark-32px.png';
 import gh_logo_light from '../../images/GitHub-Mark-Light-32px.png';
 
