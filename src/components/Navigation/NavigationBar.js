@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 //import {Navbar, Nav} from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const NavigationBar = () => {
     /*
@@ -25,8 +26,14 @@ const NavigationBar = () => {
                     <Nav.Link href="/about">About</Nav.Link>
                     <Nav.Link href="/contact">Contact</Nav.Link>
                     <Nav.Link href="/portfolio">Portfolio</Nav.Link>
-                    <Nav.Link href="/war">War</Nav.Link>
-                    <Nav.Link href="/elo">Bug Elo</Nav.Link>
+                    <NavDropdown title="Projects" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="/War">War</NavDropdown.Item>
+                        <NavDropdown.Item href="/BugElo">Bug Elo</NavDropdown.Item>
+                        <NavDropdown.Item href="/Chopsticks">Chopsticks</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                    </NavDropdown>
+
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

@@ -8,7 +8,8 @@ import Home from './components/Home/Home';
 import About from './components/About/About';
 import Contact from './components/Contact/Contact';
 import War from './components/Projects/War/War';
-import BugElo from './components/BugElo/BugElo';
+import BugElo from './components/Projects/BugElo/BugElo';
+import Chopsticks from './components/Projects/Chopsticks/Chopsticks';
 
 import NavigationBar from './components/Navigation/NavigationBar';
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
           <Route exact path="/portfolio" component={Portfolio}></Route>
           <Route exact path="/war" component={War}></Route>
           <Route exact path="/elo" component={BugElo}></Route>
+          <Route exact path="/chopsticks" component={Chopsticks}></Route>
         </Router>
       </div>
     );
