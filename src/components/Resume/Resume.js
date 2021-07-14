@@ -2,8 +2,6 @@ import React from 'react';
 import resume_file from '../../files/resume.pdf';
 import classes from './Resume.module.css';
 
-import {Document} from 'react-pdf';
-
 const resume = () => (
 	//Leave a little bit of space around the edges to escape scroll depending on screen size
 	//<embed src={resume_file} type="application/pdf" width="98%" height="800px"  />
