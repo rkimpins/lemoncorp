@@ -7,7 +7,7 @@ import g_logo from '../../images/Logos/gmail_logo.png';
 import f_logo from '../../images/Logos/facebook_logo.png';
 import LogoAndText from './LogoAndText/LogoAndText';
 
-import classes from './Contact.module.css';
+//import classes from './Contact.module.css';
 
 const contact = () => {
     return (
