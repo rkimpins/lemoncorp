@@ -24,12 +24,14 @@ const hand = (props) => {
 	//if (props.orientation === "vertical") {}
 
 	var img_selected;
-	if (props.selected[0] === props.index[0] && props.selected[1] === props.index[1]) {
+	if (props.selected === null) {
+		img_selected = "";
+	} else if (props.selected[0] === props.index[0] && props.selected[1] === props.index[1]) {
 		console.log(props.selected);
 		console.log(props.index);
 		img_selected = classes.Selected_Hand;
 	} else {
-		img_selected = ""
+		img_selected = "";
 	}
 
     return (

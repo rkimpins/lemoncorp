@@ -9,20 +9,49 @@ class Chopsticks extends Component {
 			[1, 2],
 			[3, 4],
 		],
-		select_hand: [0,0],
-		turn: 1,
+		select_hand: null,
+		turn: 0,
 	}
 
 	hand_clicked_handler = (hand_index) => {
 		const hands = this.state.hands;
+
 		if (this.state.select_hand === null) {
-			window.alert("Please select a hand from player {this.state.turn} first");
+
+			if (hand_index[0] !== this.state.turn) {
+				window.alert("Please select a hand from player " + (this.state.turn + 1).toString() + " first");
+			}
+			else {
+				this.setState({
+					select_hand: hand_index,
+				});
+			}
+
 		} else {
-			console.log(hand_index, this.state.select_hand);
+			if (hand_index[0] === this.state.turn) {
+				this.setState({
+					select_hand: hand_index
+				})
+			} else {
+				//new selected hand value
+				console.log(hands[hand_index[0]][hand_index[1]]);
+				//currently selected hand
+				console.log(hands[this.state.select_hand[0]][this.state.select_hand[1]]);
+				//new hand value
+				console.log((hands[hand_index[0]][hand_index[1]] + hands[this.state.select_hand[0]][this.state.select_hand[1]]) % 5);
+				
+				//Update new hand value
+				hands[hand_index[0]][hand_index[1]] = (hands[hand_index[0]][hand_index[1]] + hands[this.state.select_hand[0]][this.state.select_hand[1]]) % 5;
+				//Swap turns
+				const new_turn = (this.state.turn + 1) % 2;
+
+				this.setState({
+					hands: hands,
+					turn: new_turn,
+					select_hand: null,
+				});
+			}
 		}
-		this.setState({
-			select_hand: hand_index
-		})
 	}
 
 	render() {
