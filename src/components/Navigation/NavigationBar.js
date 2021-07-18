@@ -22,12 +22,11 @@ const NavigationBar = () => {
             <Navbar.Brand href="/home">
                 <img
                     src={Logo}
-                    width="100%"
-                    height="100%"
+                    width="20%"
                     alt="Logo"
                 />
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>

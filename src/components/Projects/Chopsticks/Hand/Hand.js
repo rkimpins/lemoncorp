@@ -23,9 +23,22 @@ const hand = (props) => {
 	//transform: scaleY(-1)
 	//if (props.orientation === "vertical") {}
 
+	var img_selected;
+	if (props.selected[0] === props.index[0] && props.selected[1] === props.index[1]) {
+		console.log(props.selected);
+		console.log(props.index);
+		img_selected = classes.Selected_Hand;
+	} else {
+		img_selected = ""
+	}
+
     return (
-		<div className={classes}>
-			<img src={hands[props.value]} alt="Hand with {props.value} fingers"/>
+		<div className={classes.Hand}>
+			<img 
+				className={img_selected} 
+				src={hands[props.value]} 
+				onClick={() => props.onClick(props.index)}
+				alt="Hand with {props.value} fingers"/>
 		</div>
     )
 }

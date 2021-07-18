@@ -2,3 +2,15 @@
 	display: flex;
 	flex-basis: row;
 }
+
+.Player1 {
+	display: flex;
+	position: absolute;
+	bottom: 0px;
+}
+
+.Player2 {
+	display: flex;
+	position: relative;
+	top: 0px;
+}

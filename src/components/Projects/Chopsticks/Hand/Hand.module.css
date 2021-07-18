@@ -1,4 +1,14 @@
+/* For some reason this needs to stay in to align the logo properly */
 img {
 	width: 20%;
 	display: flex;
+}
+
+.Hand img {
+	width: 50%;
+	display: flex;
+}
+
+.Selected_Hand {
+	border: 2px solid red;
 }
