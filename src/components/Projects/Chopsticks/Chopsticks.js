@@ -15,6 +15,10 @@ class Chopsticks extends Component {
 
 	hand_clicked_handler = (hand_index) => {
 		const hands = this.state.hands;
+		if (hands[hand_index[0]][hand_index[1]] === 0) {
+			window.alert("Can't select a hand with no fingers");
+			return;
+		}
 
 		if (this.state.select_hand === null) {
 
@@ -33,10 +37,6 @@ class Chopsticks extends Component {
 					select_hand: hand_index
 				})
 			} else {
-				//new selected hand value
-				//currently selected hand
-				//new hand value
-				
 				//Update new hand value
 				hands[hand_index[0]][hand_index[1]] = (hands[hand_index[0]][hand_index[1]] + hands[this.state.select_hand[0]][this.state.select_hand[1]]) % 5;
 				//Swap turns
