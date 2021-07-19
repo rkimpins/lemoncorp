@@ -91,6 +91,27 @@ class Chopsticks extends Component {
 		}
 	}
 
+	//Handle swapping finger amounts
+	swap_fingers_handler = (hand, amount) => {
+		//Can't swap fingers in a symmetrical way
+		//Can swap to revive a hand
+		//Can swap to kill a hand
+		console.log("Swap_fingers_handler arguments", hand, amount);
+
+		const hands = this.state.hands;
+		hands[hand][0] = (hands[hand][0] - amount) % 5;
+		hands[hand][1] = (hands[hand][1] + amount) % 5;
+		const new_turn = (this.state.turn + 1) % 2;
+
+		//Set state and Switch turns
+		this.setState({
+			hands: hands,
+			select_hand: null,
+			turn: new_turn,
+		});
+
+	}
+
 
 	render() {
 		var victory_message = "";
@@ -99,7 +120,73 @@ class Chopsticks extends Component {
 		if (victor !== 0) {
 			victory_message = "Player " + victor.toString() + " wins!";
 		}
-		console.log(victor)
+		console.log("[Chopsticks.js] game_over output: ", victor);
+
+		if (this.state.turn === 0) {
+			//Swap Buttons Player 1
+			var swap_button_p1_h1 = [];
+			for (let i = 1; i <= this.state.hands[0][0]; i++) {
+				if ((this.state.hands[0][0] - i) === this.state.hands[0][1]) {
+					continue;
+				}
+				console.log("swap_button_p1h1 creation loop index: ", i);
+				swap_button_p1_h1.push(
+					<button 
+						key={"p1h1-" + i.toString()}
+						className={classes.swap_button}
+						onClick={() => this.swap_fingers_handler(0, i)}>
+						{">>" + i.toString() + ">>"}
+					</button>
+				);
+			}
+			var swap_button_p1_h2 = [];
+			for (let i = 1; i <= this.state.hands[0][1]; i++) {
+				if ((this.state.hands[0][1] - i) === this.state.hands[0][0]) {
+					continue;
+				}
+				swap_button_p1_h2.push(
+					<button 
+						key={"p1h2-" + i.toString()}
+						className={classes.swap_button} onClick={this.swap_fingers_handler.bind(this, 0, -i)}>
+						{"<<" + i.toString() + "<<"}
+					</button>
+				);
+			}
+		} else if (this.state.turn === 1) {
+
+			//Swap Buttons Player 2
+			var swap_button_p2_h1 = [];
+			for (let i = 1; i <= this.state.hands[1][0]; i++) {
+				if ((this.state.hands[1][0] - i) === this.state.hands[1][1]) {
+					continue;
+				}
+				swap_button_p2_h1.push(
+					<button 
+						key={"p2h1-" + i.toString()}
+						className={classes.swap_button} onClick={this.swap_fingers_handler.bind(this, 1, i)}>
+						{">>" + i.toString() + ">>"}
+					</button>
+				);
+			}
+			var swap_button_p2_h2 = [];
+			for (let i = 1; i <= this.state.hands[1][1]; i++) {
+				if ((this.state.hands[1][1] - i) === this.state.hands[1][0]) {
+					continue;
+				}
+				swap_button_p2_h2.push(
+					<button 
+						key={"p2h2-" + i.toString()}
+						className={classes.swap_button} onClick={this.swap_fingers_handler.bind(this, 1, -i)}>
+						{"<<" + i.toString() + "<<"}
+					</button>
+				);
+			}
+		}
+
+
+
+		console.log("Swap button array p1h1", swap_button_p1_h1);
+
 
 		return (
 			<div className={classes}>
@@ -110,6 +197,10 @@ class Chopsticks extends Component {
 						selected={this.state.select_hand}
 						onClick={this.hand_clicked_handler}
 					/>
+					<div>
+						{swap_button_p1_h1}
+						{swap_button_p1_h2}
+					</div>
 					<Hand 
 						index={[0,1]} 
 						value={this.state.hands[0][1]} 
@@ -126,6 +217,10 @@ class Chopsticks extends Component {
 						selected={this.state.select_hand}
 						onClick={this.hand_clicked_handler}
 					/>
+					<div>
+						{swap_button_p2_h1}
+						{swap_button_p2_h2}
+					</div>
 					<Hand 
 						index={[1,1]} 
 						value={this.state.hands[1][1]} 
