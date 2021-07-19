@@ -15,6 +15,11 @@ class Chopsticks extends Component {
 
 	hand_clicked_handler = (hand_index) => {
 		const hands = this.state.hands;
+		// Don't allow player to select hand when game is over
+		if (this.game_over() !== 0) {
+			return;
+		}
+		// Don't allow player to select a hand without fingers
 		if (hands[hand_index[0]][hand_index[1]] === 0) {
 			window.alert("Can't select a hand with no fingers");
 			return;
