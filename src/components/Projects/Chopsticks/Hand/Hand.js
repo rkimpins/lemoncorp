@@ -27,8 +27,8 @@ const hand = (props) => {
 	if (props.selected === null) {
 		img_selected = "";
 	} else if (props.selected[0] === props.index[0] && props.selected[1] === props.index[1]) {
-		console.log(props.selected);
-		console.log(props.index);
+		console.log("[Hand.js] props selected: ", props.selected);
+		console.log("[Hand.js] props index: ", props.index);
 		img_selected = classes.Selected_Hand;
 	} else {
 		img_selected = "";

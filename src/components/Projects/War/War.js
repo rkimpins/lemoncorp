@@ -23,8 +23,8 @@ class War extends Component {
 			hand2.push(deck.deal());
 		}
 
-		console.log("hands", hand1[0]);
-		console.log("hands", hand1);
+		console.log("[War.js] constructor() hand1[0]: ", hand1[0]);
+		console.log("[War.js] constructor() hand1: ", hand1);
 
 		let myData = this.set_graph_data_from_hands(hand1, hand2);
 
@@ -43,7 +43,7 @@ class War extends Component {
 				}
 			}
 		}
-		console.log("state", this.state)
+		console.log("[War.js] constructor() state: ", this.state)
 	}
 
 	deal_cards = () => {
@@ -122,18 +122,18 @@ class War extends Component {
 		let hand2 = new Deck();
 		//hand1.deck = [...this.state.player1];
 		//hand2.deck = [...this.state.player2];
-		console.log("player1", this.state.player1);
-		console.log("player2", this.state.player2);
+		console.log("[War.js] play_round_of_war() state.player1: ", this.state.player1);
+		console.log("[War.js] play_round_of_war() state.player2: ", this.state.player2);
 		hand1.deck = this.state.player1;
 		hand2.deck = this.state.player2;
-		console.log(hand1);
-		console.log(hand2);
+		console.log("[War.js] play_round_of_war() hand1: ", hand1);
+		console.log("[War.js] play_round_of_war() hand2: ", hand2);
 
 		const card1 = hand1.deal();
 		const card2 = hand2.deal();
 
-		console.log(card1);
-		console.log(card2);
+		console.log("[War.js] play_round_of_war() card1: ", card1);
+		console.log("[War.js] play_round_of_war() card2: ", card2);
 
 		this.setState({
 			current_cards: {
@@ -169,8 +169,8 @@ class War extends Component {
 				cards.push(war2);
 				war1 = hand1.deal();
 				war2 = hand2.deal();
-				console.log(war1);
-				console.log(war2);
+				console.log("[War.js] play_round_of_war() war1 card", war1);
+				console.log("[War.js] play_round_of_war() war2 card", war2);
 			}
 			if (war1.value > war2.value) {
 				for (let card in cards) {
@@ -207,7 +207,7 @@ class War extends Component {
 
 	render () {
 		//this.convert_deck_to_graph_data(this.state.player1);
-		console.log(this.state.data);
+		console.log("[War.js] render() state.data: ", this.state.data);
 
 
 		//let myData = [{ label: "Player 1", data: [{ x: 1, y: 2 }, { x: 2, y: 4 }, { x: 3, y: 1 }, { x: 4, y: 1 }, { x: 5, y: 4 }, { x: 6, y: 2 }, { x: 7, y: 0 }, { x: 8, y: 2 }, { x: 9, y: 2 }, { x: 10, y: 1 }, { x: 11, y: 2 }, { x: 12, y: 3 }, { x: 13, y: 2 } ] }, { label: "Player 2", data: [ { x: 1, y: 2 }, { x: 2, y: 0 }, { x: 3, y: 3 }, { x: 4, y: 3 }, { x: 5, y: 0 }, { x: 6, y: 2 }, { x: 7, y: 4 }, { x: 8, y: 2 }, { x: 9, y: 2 }, { x: 10, y: 3 }, { x: 11, y: 2 }, { x: 12, y: 1 }, { x: 13, y: 2 } ] }];

@@ -58,7 +58,7 @@ class BugElo extends Component {
 		var probAWins = this.calculate_expected_score(
 			this.state.bugs[this.state.bugAIndex].trueElo,
 			this.state.bugs[this.state.bugBIndex].trueElo)
-		console.log("probAWins", probAWins)
+		console.log("[BugElo.js] probAWins: ", probAWins)
 		var score;
 		var randomVal = Math.random();
 
@@ -68,7 +68,7 @@ class BugElo extends Component {
 			score = 0;
 		}
 
-		console.log("score", score)
+		console.log("[BugElo.js] score: ", score)
 		
 		var newRatingA = this.calculate_new_rating(
 			score,
