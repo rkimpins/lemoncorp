@@ -5,6 +5,7 @@ import gh_logo from '../../images/Logos/github_logo.png';
 import i_logo from '../../images/Logos/instagram_logo.png';
 import g_logo from '../../images/Logos/gmail_logo.png';
 import f_logo from '../../images/Logos/facebook_logo.png';
+import gr_logo from '../../images/Logos/goodreads_logo.png';
 import LogoAndText from './LogoAndText/LogoAndText';
 
 //import classes from './Contact.module.css';
@@ -45,6 +46,12 @@ const contact = () => {
                     alt="Facebook"
                     link="https://www.facebook.com/randal.kimpinski/"
                     text="randal.kimpinski"
+                />
+                <LogoAndText
+                    logo={gr_logo}
+                    alt="Goodreads"
+                    link="https://www.goodreads.com/user/show/78791406-randal"
+                    text="randal"
                 />
             </div>
         </div>
