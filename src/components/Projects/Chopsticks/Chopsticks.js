@@ -71,10 +71,10 @@ class Chopsticks extends Component {
 		const victor = this.game_over();
 		if (victor === 1) {
 			window.alert("Player 1 wins!");
-			console.log("Player 1 wins!");
+			console.log("[Chopsticks]", "Player 1 wins!");
 		} else if (victor === 2) {
 			window.alert("Player 2 wins!");
-			console.log("Player 2 wins!");
+			console.log("[Chopsticks]", "Player 2 wins!");
 		}
 	}
 
@@ -96,7 +96,7 @@ class Chopsticks extends Component {
 		//Can't swap fingers in a symmetrical way
 		//Can swap to revive a hand
 		//Can swap to kill a hand
-		console.log("Swap_fingers_handler arguments", hand, amount);
+		console.log("[Chopsticks.js] Swap_fingers_handler arguments", hand, amount);
 
 		const hands = this.state.hands;
 		hands[hand][0] = (hands[hand][0] - amount) % 5;
@@ -129,7 +129,7 @@ class Chopsticks extends Component {
 				if ((this.state.hands[0][0] - i) === this.state.hands[0][1]) {
 					continue;
 				}
-				console.log("swap_button_p1h1 creation loop index: ", i);
+				console.log("[Chopsticks] swap_button_p1h1 creation loop index: ", i);
 				swap_button_p1_h1.push(
 					<button 
 						key={"p1h1-" + i.toString()}
@@ -185,7 +185,7 @@ class Chopsticks extends Component {
 
 
 
-		console.log("Swap button array p1h1", swap_button_p1_h1);
+		console.log("[Chopsticks.js] Swap button array p1h1", swap_button_p1_h1);
 
 
 		return (
