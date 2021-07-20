@@ -197,18 +197,18 @@ class Chopsticks extends Component {
 						selected={this.state.select_hand}
 						onClick={this.hand_clicked_handler}
 					/>
-					<div className={classes.SwapButtons}>
-						{swap_button_p1_h1}
-					</div>
-					<div className={classes.SwapButtons}>
-						{swap_button_p1_h2}
-					</div>
 					<Hand 
 						index={[0,1]} 
 						value={this.state.hands[0][1]} 
 						selected={this.state.select_hand}
 						onClick={this.hand_clicked_handler}
 					/>
+					<div className={classes.SwapButtons}>
+						{swap_button_p1_h1}
+					</div>
+					<div className={classes.SwapButtons}>
+						{swap_button_p1_h2}
+					</div>
 				</div>
 				<button onClick={this.reset_game_handler}>Reset Game</button>
 				<h1>{victory_message}</h1>
@@ -219,18 +219,18 @@ class Chopsticks extends Component {
 						selected={this.state.select_hand}
 						onClick={this.hand_clicked_handler}
 					/>
-					<div className={classes.SwapButtons}>
-						{swap_button_p2_h1}
-					</div>
-					<div className={classes.SwapButtons}>
-						{swap_button_p2_h2}
-					</div>
 					<Hand 
 						index={[1,1]} 
 						value={this.state.hands[1][1]} 
 						selected={this.state.select_hand}
 						onClick={this.hand_clicked_handler}
 					/>
+					<div className={classes.SwapButtons}>
+						{swap_button_p2_h1}
+					</div>
+					<div className={classes.SwapButtons}>
+						{swap_button_p2_h2}
+					</div>
 				</div>
 			</div>
 		)
