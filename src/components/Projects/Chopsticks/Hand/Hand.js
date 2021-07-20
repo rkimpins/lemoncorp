@@ -34,13 +34,15 @@ const hand = (props) => {
 		img_selected = "";
 	}
 
+	const alt_message = "Hand with " + props.value.toString() + " fingers";
+
     return (
 		<div className={classes.Hand}>
 			<img 
 				className={img_selected} 
 				src={hands[props.value]} 
 				onClick={() => props.onClick(props.index)}
-				alt="Hand with {props.value} fingers"/>
+				alt={alt_message}/>
 		</div>
     )
 }
