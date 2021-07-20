@@ -6,7 +6,7 @@ class Chopsticks extends Component {
 
 	state = {
 		hands: [
-			[1, 2],
+			[3, 4],
 			[3, 4],
 		],
 		select_hand: null,
@@ -197,8 +197,10 @@ class Chopsticks extends Component {
 						selected={this.state.select_hand}
 						onClick={this.hand_clicked_handler}
 					/>
-					<div>
+					<div className={classes.SwapButtons}>
 						{swap_button_p1_h1}
+					</div>
+					<div className={classes.SwapButtons}>
 						{swap_button_p1_h2}
 					</div>
 					<Hand 
@@ -217,8 +219,10 @@ class Chopsticks extends Component {
 						selected={this.state.select_hand}
 						onClick={this.hand_clicked_handler}
 					/>
-					<div>
+					<div className={classes.SwapButtons}>
 						{swap_button_p2_h1}
+					</div>
+					<div className={classes.SwapButtons}>
 						{swap_button_p2_h2}
 					</div>
 					<Hand 
