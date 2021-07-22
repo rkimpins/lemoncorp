@@ -11,6 +11,7 @@ import Portfolio from "./components/Portfolio/Portfolio";
 import War from './components/Projects/War/War';
 import BugElo from './components/Projects/BugElo/BugElo';
 import Chopsticks from './components/Projects/Chopsticks/Chopsticks';
+import IntegerSequences from './components/Projects/IntegerSequences/IntegerSequences';
 
 import NavigationBar from './components/Navigation/NavigationBar';
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
           <Route exact path="/war" component={War}></Route>
           <Route exact path="/BugElo" component={BugElo}></Route>
           <Route exact path="/chopsticks" component={Chopsticks}></Route>
+          <Route exact path="/IntegerSequences" component={IntegerSequences}></Route>
         </Router>
       </div>
     );
