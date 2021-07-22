@@ -1,7 +1,20 @@
 import React, {Component} from 'react';
+import DisplayBug from './DisplayBug/DisplayBug';
+import classes from './BugElo.module.css';
 
 const K = 32;
 const maxUpdate = 32;
+
+
+
+/*
+0: Ladybug
+1: Centipede
+2: Hercules Beetle
+3: Stag Beetle
+4: American Carrion Beetle
+5: Butterfly
+*/
 
 class BugElo extends Component {
 
@@ -12,15 +25,30 @@ class BugElo extends Component {
 		this.state = {
 			bugs: [
 				{ name: "Ladybug", trueElo: 100, currentElo: startingElo },
-				{ name:"Centipede", trueElo: 2000, currentElo: startingElo },
-				{ name:"Hercules Beetle", trueElo: 1400, currentElo: startingElo },
-				{ name:"Stag Beetle", trueElo: 1500, currentElo: startingElo },
-				{ name:"American Carrion Beetle", trueElo: 1300, currentElo: startingElo },
-				{ name:"Butterfly", trueElo: 500, currentElo: startingElo },
+				{ name: "Centipede", trueElo: 2000, currentElo: startingElo },
+				{ name: "Hercules Beetle", trueElo: 1400, currentElo: startingElo },
+				{ name: "Stag Beetle", trueElo: 1500, currentElo: startingElo },
+				{ name: "American Carrion Beetle", trueElo: 1300, currentElo: startingElo },
+				{ name: "Butterfly", trueElo: 500, currentElo: startingElo },
 			],
 			bugAIndex: 0,
 			bugBIndex: 0,
+			lastReplaced: 1,
 
+		}
+	}
+
+	clickBugHandler = (index) => {
+		if (this.state.lastReplaced === 1) {
+			this.setState({
+				bugAIndex: index,
+				lastReplaced: 0,
+			});
+		} else {
+			this.setState({
+				bugBIndex: index,
+				lastReplaced: 1,
+			});
 		}
 	}
 
@@ -99,12 +127,13 @@ class BugElo extends Component {
 		for (index in this.state.bugs) {
 			bug = this.state.bugs[index];
 			bugs.push(
-				<li key={index}>
-					<p>{bug.name}</p>
-					<p>{bug.trueElo}</p>
-					<p>{bug.currentElo}</p>
-				</li>
-			)
+				<DisplayBug 
+					{...bug}
+					onClick={this.clickBugHandler}
+					key={index}
+					bugIndex={index}
+					/>
+			);
 
 		}
 
@@ -112,20 +141,22 @@ class BugElo extends Component {
 			<div>
 				<p>BugElo</p>
 				<br/>
-				<li>
-					<p>{this.state.bugs[this.state.bugAIndex].name}</p>
-					<p>{this.state.bugs[this.state.bugAIndex].trueElo}</p>
-					<p>{this.state.bugs[this.state.bugAIndex].currentElo}</p>
-				</li>
-				<li>
-					<p>{this.state.bugs[this.state.bugBIndex].name}</p>
-					<p>{this.state.bugs[this.state.bugBIndex].trueElo}</p>
-					<p>{this.state.bugs[this.state.bugBIndex].currentElo}</p>
-				</li>
+				<DisplayBug
+					{...this.state.bugs[this.state.bugAIndex]}
+					onClick={this.clickBugHandler}
+					key="A"
+				/>
+				<DisplayBug
+					{...this.state.bugs[this.state.bugBIndex]}
+					onClick={this.clickBugHandler}
+					key="B"
+				/>
 				<br/>
 				<button onClick={this.chooseBugsHandler}>Choose Fighters</button>
 				<button onClick={this.makeBugsFight}>FIGHT!!!</button>
-				{bugs}
+				<div className={classes.container}>
+					{bugs}
+				</div>
 			</div>
 		);
 	}
