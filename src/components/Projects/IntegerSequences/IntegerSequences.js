@@ -27,11 +27,37 @@ class IntegerSequences extends Component {
 	}
 
 	generateVanEckSequence = () => {
+		console.log("[IntegerSequences] generateVanEckSequence()");
+		if (this.state.numberDisplayedValues === 0) {
+			this.setState({
+				generatedValues: [0, 0],
+			});
+		} else {
+			//if value not previously seen, add zero
+			//if value previously seen, find out how many steps ago
+			const clone = [...this.state.generatedValues];
+			for (let i = clone.length - 2; i >= 0; i--) {
+				if (clone[i] === clone[clone.length - 1]) {
+					clone.push(clone.length - 1 - i)
+					this.setState({
+						generatedValues: clone,
+					})
+					break;
+				} else if (i === 0) {
+					clone.push(0);
+					this.setState({
+						generatedValues: clone,
+					})
+				}
+			}
+		}
+
 	}
 	generateLevineSequence = () => {
 	}
 	generateNonRepeatingBinarySequence = () => {
 		//1 + 0 + 01 + 0110 + 01101001 + 011010011001 + 0110100110010110 + ...
+		console.log("[IntegerSequences] generateNonRepeatingBinarySequence()");
 		var generatedValues = this.state.generatedValues;
 		const generationIncrements = 10;
 		if (this.state.generatedValues.length === 0) {
