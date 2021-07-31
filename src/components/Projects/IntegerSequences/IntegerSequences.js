@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {AiOutlineQuestionCircle} from 'react-icons/ai';
 
-import {DropdownButton, Dropdown} from 'react-bootstrap';
+import {DropdownButton, Dropdown, Row} from 'react-bootstrap';
 
 
 
@@ -53,7 +53,111 @@ class IntegerSequences extends Component {
 		}
 
 	}
+
+	nextLevineRow = (currentRow) => {
+		const nextRow = [];
+		// i = index of row entry currently considered
+		for (let i = currentRow.length - 1; i >= 0; i--) {
+			// j = counter for row entry
+			for (let j = 0; j <= currentRow[i] - 1; j++) {
+				nextRow.push(currentRow.length - i);
+			}
+		}
+		console.log("nextLevineRow()", nextRow);
+		return nextRow;
+	}
+
+	generateLevineTriangle = () => {
+		if (this.state.numberDisplayedValues === 0) {
+			this.setState({
+				generatedValues: [2],
+			});
+		} else {
+			const levineTriangle = [[2]];
+			const levineSequence = [2];
+			var flatLevineTriangle = [2]
+			var currentRow = [2];
+			var nextRow
+			for (let i = 0; i < 10; i++) {
+				nextRow = this.nextLevineRow(currentRow);
+				levineTriangle.push(nextRow);
+				levineSequence.push(nextRow.reduce((a,b) => a + b));
+				flatLevineTriangle = [...flatLevineTriangle, ...nextRow];
+				currentRow = nextRow;
+			}
+			console.log(flatLevineTriangle);
+
+			this.setState({
+				generatedValues: flatLevineTriangle,
+			});
+		}
+	}
+
 	generateLevineSequence = () => {
+		console.log("[IntegerSequences] generateLevineSequence()");
+		if (this.state.numberDisplayedValues === 0) {
+			this.setState({
+				generatedValues: [2],
+			});
+		} else if (this.state.generatedValues.length >= 11) {
+			alert("The Levine Sequence past the 11th term is too computationally intensive. See help section")
+			/*
+			n 		a(n)
+			1		1
+			2		2
+			3		2
+			4		3
+			5		4
+			6		7
+			7		14
+			8		42
+			9		213
+			10		2837
+			11		175450
+			12		139759600
+			13		6837625106787
+			14		266437144916648607844
+			15		508009471379488821444261986503540
+			16		37745517525533091954736701257541238885239740313139682
+			17		5347426383812697233786139576220450142250373277499130252554080838158299886992660750432
+			*/
+		} else {
+			const levineTriangle = [[2]];
+			const levineSequence = [2];
+			var currentRow = [2];
+			var nextRow
+			for (let i = 0; i < this.state.numberDisplayedValues; i++) {
+				nextRow = this.nextLevineRow(currentRow);
+				levineTriangle.push(nextRow);
+				levineSequence.push(nextRow.reduce((a,b) => a + b));
+				currentRow = nextRow;
+			}
+			console.log(levineTriangle);
+
+			this.setState({
+				generatedValues: levineSequence,
+			});
+		}
+
+			/*
+			const clone = [[2]];
+			for (let i = 0; i < 5; i++) {
+				const newArray = [];
+				const previousArray = clone[clone.length - 1];
+
+				for (let j = 0; i < clone[i]; j++) {
+
+			const clone = [...this.state.generatedValues];
+			const newValue = [];
+			for (let i = clone.length - 1; i >= 0; i--) {
+				for (let j = 0; j < clone[i]; j++) {
+					newValue.push(clone.length - i);
+				}
+			}
+			this.setState({
+				generatedValues: [...this.state.generatedValues, ...newValue],
+			});
+			*/
 	}
 	generateNonRepeatingBinarySequence = () => {
 		//1 + 0 + 01 + 0110 + 01101001 + 011010011001 + 0110100110010110 + ...
@@ -161,6 +265,9 @@ class IntegerSequences extends Component {
 			case "levine":
 				newFunction = this.generateLevineSequence;
 				break;
+			case "levine triangle":
+				newFunction = this.generateLevineTriangle;
+				break;
 			case "van eck":
 				newFunction = this.generateVanEckSequence;
 				break;
@@ -188,6 +295,14 @@ class IntegerSequences extends Component {
 			info = "";
 		}
 
+		//console.log(this.nextLevineRow([2]));
+		//console.log(this.nextLevineRow([1,1]));
+		//console.log(this.nextLevineRow([1,2]));
+		//console.log(this.nextLevineRow([1, 1,2]));
+		//console.log(this.nextLevineRow([1, 1, 2, 3]));
+		//here
+		//console.log(this.nextLevineRow([2]));
+
 		return (
 			<React.Fragment>
 				<button onClick={this.displayAnotherValue}>Next Value</button>
@@ -208,6 +323,10 @@ class IntegerSequences extends Component {
 					<Dropdown.Item
 						onClick={() => {this.setIntegerSequence("levine")}}>
 						Levine Sequence
+					</Dropdown.Item>
+					<Dropdown.Item
+						onClick={() => {this.setIntegerSequence("levine triangle")}}>
+						Levine Triangle
 					</Dropdown.Item>
 					<Dropdown.Item
 						onClick={() => {this.setIntegerSequence("van eck")}}>
