@@ -52,7 +52,34 @@ class IntegerSequences extends Component {
 			});
 		}
 	}
+
+	isPrime = (n) => {
+		if (n < 2) {
+			return false;
+		}
+		for (let i = 2; i < n; i++) {
+			if (n % i === 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	generatePrimeNumbersSequence = () => {
+		if (this.state.generatedValues.length === 0) {
+			this.setState({
+				generatedValues: [2],
+			})
+		} else {
+			const clone = [...this.state.generatedValues]
+			let nextPrime = clone[clone.length - 1] + 1;
+			while (!this.isPrime(nextPrime)) {
+				nextPrime++;
+			}
+			this.setState({
+				generatedValues: [...clone, nextPrime],
+			});
+		}
 	}
 	/*
 	https://en.wikipedia.org/wiki/List_of_integer_sequences
