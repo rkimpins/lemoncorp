@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
 import {AiOutlineQuestionCircle} from 'react-icons/ai';
 
+import {DropdownButton, Dropdown} from 'react-bootstrap';
+
+
+
 
 class IntegerSequences extends Component {
 	state = {
-		selectedSequence: "test",
-		currentlyDisplayedValues: [],
+		selectedSequence: "Select a sequence",
 		generatedValues: [],
 		showInformation: false,
-	}
-
-	generateValues = () => {
-		this.generateFibonacciSequence();
+		generateValues: null,
+		numberDisplayedValues: 0,
 	}
 
 	displayAnotherValue = () => {
-		console.log("[IntegerSeuqences] displayAnotherValues()");
-		if (this.state.currentlyDisplayedValues.length === this.state.generatedValues.length) {
-			this.generateValues();
+		console.log("[IntegerSequences] displayAnotherValues()");
+		if (this.state.numberDisplayedValues === this.state.generatedValues.length) {
+			//this.generateValues();
+			this.state.generateValues();
 		}
-		const currentValues = this.state.currentlyDisplayedValues;
-		currentValues.push(this.state.generatedValues[currentValues.length]);
 		this.setState({
-			currentlyDisplayedValues: currentValues,
+			numberDisplayedValues: this.state.numberDisplayedValues + 1,
 		});
 	}
 
@@ -32,8 +32,27 @@ class IntegerSequences extends Component {
 	}
 	generateNonRepeatingBinarySequence = () => {
 		//1 + 0 + 01 + 0110 + 01101001 + 011010011001 + 0110100110010110 + ...
+		var generatedValues = this.state.generatedValues;
+		const generationIncrements = 10;
+		if (this.state.generatedValues.length === 0) {
+			this.setState({
+				generatedValues: [1],
+			})
+		} else {
+			const clone = [...generatedValues]
+			for (let i = 0; i < clone.length; i++) {
+				if (clone[i] === 0) {
+					clone[i] = 1;
+				} else {
+					clone[i] = 0;
+				}
+			}
+			this.setState({
+				generatedValues: [...generatedValues, ...clone],
+			});
+		}
 	}
-	gejneratePrimeNumbersSequence = () => {
+	generatePrimeNumbersSequence = () => {
 	}
 	/*
 	https://en.wikipedia.org/wiki/List_of_integer_sequences
@@ -66,9 +85,44 @@ class IntegerSequences extends Component {
 		console.log("[IntegerSequences] generatedValues: ", generatedValues);
 
 	}
+
 	toggleShowInformation = () => {
 		this.setState({
 			showInformation: !this.state.showInformation,
+		});
+	}
+
+	setIntegerSequence = (newSequence) => {
+		console.log("[IntegerSequences] setIntegerSequence()");
+		var newFunction;
+		switch(newSequence) {
+			case "fibonacci":
+				newFunction = this.generateFibonacciSequence;
+				break;
+			case "non-repeating binary":
+				newFunction = this.generateNonRepeatingBinarySequence;
+				break;
+			case "prime numbers":
+				newFunction = this.generatePrimeNumbersSequence;
+				break;
+			case "levine":
+				newFunction = this.generateLevineSequence;
+				break;
+			case "van eck":
+				newFunction = this.generateVanEckSequence;
+				break;
+			default:
+				console.log("[IntegerSequences.js] setIntegerSequence() invalid newSequence value");
+				break;
+		}
+
+
+		this.setState({
+			selectedSequence: newSequence,
+			generateValues: newFunction,
+			numberDisplayedValues: 0,
+			generatedValues: [],
+			showInformation: false,
 		});
 	}
 
@@ -85,9 +139,33 @@ class IntegerSequences extends Component {
 			<React.Fragment>
 				<button onClick={this.displayAnotherValue}>Next Value</button>
 				<button onClick={this.toggleShowInformation}><AiOutlineQuestionCircle/><AiOutlineQuestionCircle/></button>
-				<p>{this.state.currentlyDisplayedValues.map(String).join(", ")}</p>
+				<DropdownButton id="dropdown-basic-button" title={this.state.selectedSequence}>
+					<Dropdown.Item
+						onClick={() => {this.setIntegerSequence("fibonacci")}}>
+						Fibonacci Sequence
+					</Dropdown.Item>
+					<Dropdown.Item
+						onClick={() => {this.setIntegerSequence("non-repeating binary")}}>
+						Non-Repeating Binary Sequence
+					</Dropdown.Item>
+					<Dropdown.Item
+						onClick={() => {this.setIntegerSequence("prime numbers")}}>
+						Prime Numbers
+					</Dropdown.Item>
+					<Dropdown.Item
+						onClick={() => {this.setIntegerSequence("levine")}}>
+						Levine Sequence
+					</Dropdown.Item>
+					<Dropdown.Item
+						onClick={() => {this.setIntegerSequence("van eck")}}>
+						Van Eck Sequence
+					</Dropdown.Item>
+				</DropdownButton>
+				<p>{this.state.generatedValues.slice(0, this.state.numberDisplayedValues).join(", ")}</p>
 				<p>{this.state.generatedValues.map(String).join(", ")}</p>
+
 				{info}
+				<p>{this.state.selectedSequence}</p>
 
 			</React.Fragment>
 		);
