@@ -4,18 +4,20 @@ import React from 'react'
 const Hand = (props) => {
 	//props.cards
 	/*
-	const hand = props.cards.map((card) => {
-			return (
-				<p>{card.name}-{card.color}</p>
-			)
-		});
+		backgroundColor: "black",
+		width:"20px",
+		height:"20px",
 	*/
 	return (
 		<React.Fragment>
 			{props.cards.map((card) => {
 				return (
-					<div key={card.id.toString() + card.color.toString() + card.number.toString()}>
-					{card.color}-{card.number}
+					<div 
+						key={card.id.toString() + card.color.toString() + card.number.toString()}
+						style={{color: card.color, 
+							}}
+						>
+						{card.number}
 					</div>
 				)
 			})
