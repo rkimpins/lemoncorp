@@ -39,6 +39,7 @@ const NavigationBar = () => {
                         <NavDropdown.Item href="/BugElo">Bug Elo</NavDropdown.Item>
                         <NavDropdown.Item href="/Chopsticks">Chopsticks</NavDropdown.Item>
                         <NavDropdown.Item href="/IntegerSequences">Integer Sequences</NavDropdown.Item>
+                        <NavDropdown.Item href="/Phase10">Phase 10</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
             </Navbar.Collapse>

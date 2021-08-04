@@ -12,9 +12,11 @@ import War from './components/Projects/War/War';
 import BugElo from './components/Projects/BugElo/BugElo';
 import Chopsticks from './components/Projects/Chopsticks/Chopsticks';
 import IntegerSequences from './components/Projects/IntegerSequences/IntegerSequences';
+import Phase10 from './components/Projects/Phase10/Phase10';
 
 import NavigationBar from './components/Navigation/NavigationBar';
 class App extends Component {
+
   render () {
           //<Route exact path="/contact" component={<p>Contact</p>}></Route>
     return (
@@ -30,6 +32,7 @@ class App extends Component {
           <Route exact path="/BugElo" component={BugElo}></Route>
           <Route exact path="/chopsticks" component={Chopsticks}></Route>
           <Route exact path="/IntegerSequences" component={IntegerSequences}></Route>
+          <Route exact path="/Phase10" component={Phase10}></Route>
         </Router>
       </div>
     );
