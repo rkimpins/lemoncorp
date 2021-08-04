@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {AiOutlineQuestionCircle} from 'react-icons/ai';
 
+import IntegerHelp from './IntegerHelp/IntegerHelp';
+
 import {DropdownButton, Dropdown, Row} from 'react-bootstrap';
 
 
@@ -291,6 +293,7 @@ class IntegerSequences extends Component {
 		var info;
 		if (this.state.showInformation) {
 			info = "Hello";
+			info = <IntegerHelp sequence={this.state.selectedSequence} />
 		} else {
 			info = "";
 		}
@@ -303,6 +306,14 @@ class IntegerSequences extends Component {
 		//here
 		//console.log(this.nextLevineRow([2]));
 
+		/* Integer Sequences
+			fibonacci
+			non-repeating binary
+			prime numbers
+			levine
+			levine triangle
+			van eck
+		*/
 		return (
 			<React.Fragment>
 				<button onClick={this.displayAnotherValue}>Next Value</button>
