@@ -51,18 +51,18 @@ class Phase10 extends Component {
 		var deck = [];
 		// Add Skips
 		for (let counter = 0; counter < 4; counter++) {
-			deck.push({color: "blue", number: "skip", id:counter});
+			deck.push({color: "blue", number: "skip", selected: false, id:counter.toString() + "blue" + "skip"});
 		}
 		// Add wild cards
 		for (let j = 0; j < 4; j++) {
 			for (let counter = 0; counter < 2; counter++) {
-				deck.push({color: colors[j], number: "wild", id:counter});
+				deck.push({color: colors[j], number: "wild", selected: false, id:counter.toString() + "wild" + colors[j]});
 			}
 		}
 		for (let i = 1; i <= 12; i++) {
 			for (let j = 0; j < 4; j++) {
 				for (let counter = 0; counter < 2; counter++) {
-					deck.push({color: colors[j], number: i, id: counter});
+					deck.push({color: colors[j], number: i, selected: false, id:counter+i.toString()+colors[j]});
 				}
 			}
 		}
@@ -83,6 +83,37 @@ class Phase10 extends Component {
 	}
 
 	resetRound = () => {
+	}
+
+	selectCardHandler = (card_id) => {
+		//Search through each hand
+		var hands = this.state.playerHands;
+		for (let i = 0; i < this.state.numPlayers; i++) {
+			for (let j = 0; j < hands[i].length; j++) {
+				if (hands[i][j].id === card_id) {
+					hands[i][j].selected = !hands[i][j].selected;
+				}
+			}
+		}
+		//Search through deck
+		var deck = this.state.deck;
+		for (let i = 0; i < deck.length; i++) {
+			if (deck[i].id === card_id) {
+				deck[i].selected = !deck[i].selected;
+			}
+		}
+		//Search through discard
+		var discard = this.state.discard;
+		for (let i = 0; i < discard.length; i++) {
+			if (discard[i].id === card_id) {
+				discard[i].selected = !discard[i].selected;
+			}
+		}
+		this.setState({
+			playerHands: hands,
+			deck: deck,
+			discard: discard,
+		});
 	}
 
 	dealCards = () => {
@@ -126,7 +157,7 @@ class Phase10 extends Component {
 			hands.push(
 				<div key={i} className="player-hand">
 					<h3>{this.state.playerNames[i]}</h3>
-					<Hand cards={this.state.playerHands[i]}/>
+					<Hand cards={this.state.playerHands[i]} selectCardHandler={this.selectCardHandler}/>
 				</div>
 			);
 		}
@@ -141,9 +172,9 @@ class Phase10 extends Component {
 		<button onClick={this.resetRound}>NextRound</button>
 		{hands}
 		<h3>Deck</h3>
-		<Hand cards={this.state.deck}/>
+		<Hand cards={this.state.deck} selectCardHandler={this.selectCardHandler}/>
 		<h3>Discard</h3>
-		<Hand cards={this.state.discard}/>
+		<Hand cards={this.state.discard} selectCardHandler={this.selectCardHandler}/>
 	  </div>
 	);
   }

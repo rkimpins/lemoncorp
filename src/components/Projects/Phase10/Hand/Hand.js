@@ -1,4 +1,6 @@
 import React from 'react'
+import classes from './Hand.module.css'
+import Card from '../Card/Card';
 
 
 const Hand = (props) => {
@@ -9,20 +11,19 @@ const Hand = (props) => {
 		height:"20px",
 	*/
 	return (
-		<React.Fragment>
+		<div className={classes.Hand}>
 			{props.cards.map((card) => {
 				return (
-					<div 
-						key={card.id.toString() + card.color.toString() + card.number.toString()}
-						style={{color: card.color, 
-							}}
-						>
-						{card.number}
-					</div>
+					<Card
+						{...card}
+						selectCardHandler={props.selectCardHandler}
+						key={card.id}
+					/>
 				)
+
 			})
 			}
-		</React.Fragment>
+		</div>
 	)
 }
 
