@@ -51,7 +51,7 @@ class Phase10 extends Component {
 		var deck = [];
 		// Add Skips
 		for (let counter = 0; counter < 4; counter++) {
-			deck.push({color: "blue", number: "skip", selected: false, id:counter.toString() + "blue" + "skip"});
+			deck.push({color: "blue", number: "skip", selected: false, id: `${counter.toString()}blueskip`});
 		}
 		// Add wild cards
 		for (let j = 0; j < 4; j++) {

@@ -3,7 +3,7 @@ import {AiOutlineQuestionCircle} from 'react-icons/ai';
 
 import IntegerHelp from './IntegerHelp/IntegerHelp';
 
-import {DropdownButton, Dropdown, Row} from 'react-bootstrap';
+import {DropdownButton, Dropdown} from 'react-bootstrap';
 
 
 
@@ -165,7 +165,7 @@ class IntegerSequences extends Component {
 		//1 + 0 + 01 + 0110 + 01101001 + 011010011001 + 0110100110010110 + ...
 		console.log("[IntegerSequences] generateNonRepeatingBinarySequence()");
 		var generatedValues = this.state.generatedValues;
-		const generationIncrements = 10;
+		//const generationIncrements = 10;
 		if (this.state.generatedValues.length === 0) {
 			this.setState({
 				generatedValues: [1],
