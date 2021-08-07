@@ -1,0 +1,12 @@
+.Card {
+	background-color: gray;
+	font-size: 2em;
+	width:2em;
+	height:2em;
+	border:2px solid black;
+	border-radius: 10px;
+}
+
+.Selected {
+	background-color: hotpink;
+}
