@@ -10,19 +10,20 @@ import hand_5 from '../../../../images/counting_hands/5.png';
 
 import classes from './Hand.module.css';
 
-const hand = (props) => {
-	const hands = [
-		hand_0,
-		hand_1,
-		hand_2,
-		hand_3,
-		hand_4,
-		hand_5
-	]
+interface Props {
+	selected: [number, number] | null;
+	index: [number, number];
+	value: number;
+	onClick: (index: [number, number]) => void;
+}
+
+const hand = (props:Props) => {
+	const hands = [ hand_0, hand_1, hand_2, hand_3, hand_4, hand_5 ]
 
 	//transform: scaleY(-1)
 	//if (props.orientation === "vertical") {}
 
+	//Select className contigent if current hand has been selected
 	var img_selected;
 	if (props.selected === null) {
 		img_selected = "";
