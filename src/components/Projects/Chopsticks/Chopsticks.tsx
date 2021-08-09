@@ -2,18 +2,31 @@ import React, {Component} from 'react';
 import Hand from './Hand/Hand';
 import classes from './Chopsticks.module.css';
 
-class Chopsticks extends Component {
+type HandType = [number, number];
 
-	state = {
-		hands: [
-			[3, 4],
-			[3, 4],
-		],
-		select_hand: null,
-		turn: 0,
+type HandIndex = [number, number];
+
+interface State {
+	hands: [HandType, HandType];
+	select_hand: [number, number] | null;
+	turn: number;
+}
+
+class Chopsticks extends Component<{}, State> {
+
+	constructor(props: any) {
+		super(props);
+		this.state = {
+			hands: [
+				[3, 4],
+				[3, 4],
+			],
+			select_hand: null,
+			turn: 0,
+		}
 	}
 
-	hand_clicked_handler = (hand_index) => {
+	hand_clicked_handler = (hand_index: HandIndex) => {
 		const hands = this.state.hands;
 		// Don't allow player to select hand when game is over
 		if (this.game_over() !== 0) {
@@ -45,7 +58,7 @@ class Chopsticks extends Component {
 				//Update new hand value
 				hands[hand_index[0]][hand_index[1]] = (hands[hand_index[0]][hand_index[1]] + hands[this.state.select_hand[0]][this.state.select_hand[1]]) % 5;
 				//Swap turns
-				const new_turn = (this.state.turn + 1) % 2;
+				const new_turn: number = (this.state.turn + 1) % 2;
 
 				this.setState({
 					hands: hands,
@@ -92,7 +105,7 @@ class Chopsticks extends Component {
 	}
 
 	//Handle swapping finger amounts
-	swap_fingers_handler = (hand, amount) => {
+	swap_fingers_handler = (hand: number, amount:number) => {
 		//Can't swap fingers in a symmetrical way
 		//Can swap to revive a hand
 		//Can swap to kill a hand
@@ -101,7 +114,7 @@ class Chopsticks extends Component {
 		const hands = this.state.hands;
 		hands[hand][0] = (hands[hand][0] - amount) % 5;
 		hands[hand][1] = (hands[hand][1] + amount) % 5;
-		const new_turn = (this.state.turn + 1) % 2;
+		const new_turn: number = (this.state.turn + 1) % 2;
 
 		//Set state and Switch turns
 		this.setState({
@@ -114,12 +127,13 @@ class Chopsticks extends Component {
 
 
 	render() {
-		var victory_message = "";
-		const victor = this.game_over();
+		var victory_message: string = "";
+		const victor: number = this.game_over();
 
 		if (victor !== 0) {
 			victory_message = "Player " + victor.toString() + " wins!";
 		}
+
 		console.log("[Chopsticks.js] render() game_over output: ", victor);
 
 		if (this.state.turn === 0) {
@@ -183,13 +197,12 @@ class Chopsticks extends Component {
 			}
 		}
 
-
-
 		console.log("[Chopsticks.js] render() Swap button array p1h1", swap_button_p1_h1);
 
 
+		// <div className={classes}>
 		return (
-			<div className={classes}>
+			<div>
 				<div className={classes.Player1}>
 					<Hand 
 						index={[0,0]} 
