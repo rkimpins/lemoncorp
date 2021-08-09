@@ -10,7 +10,14 @@ import american_carrion_beetle from '../../../../images/Bugs/american_carrion_be
 
 import classes from './DisplayBug.module.css';
 
-const DisplayBug = (props) => {
+interface Props {
+	name: string;
+	bugIndex: number;
+	currentElo: number;
+	onClick: (bugIndex: number) => void;
+}
+
+const DisplayBug = (props:Props) => {
 	var img_src;
 	switch (props.name) {
 		case 'Ladybug':

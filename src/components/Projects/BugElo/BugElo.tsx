@@ -16,11 +16,21 @@ const maxUpdate = 32;
 5: Butterfly
 */
 
-class BugElo extends Component {
+type Bug = {name:string, trueElo:number, currentElo:number};
 
-	constructor(props) {
+interface State {
+	bugs: Array<Bug>;
+	bugAIndex: number;
+	bugBIndex: number;
+	lastReplaced: number;
+}
+
+
+class BugElo extends Component<{}, State> {
+
+	constructor(props:any) {
 		super(props);
-		const startingElo = 1000;
+		const startingElo: number = 1000;
 
 		this.state = {
 			bugs: [
@@ -38,7 +48,7 @@ class BugElo extends Component {
 		}
 	}
 
-	clickBugHandler = (index) => {
+	clickBugHandler = (index: number) => {
 		if (this.state.lastReplaced === 1) {
 			this.setState({
 				bugAIndex: index,
@@ -52,8 +62,8 @@ class BugElo extends Component {
 		}
 	}
 
-	calculate_new_rating = (score, ratingA, ratingB) => {
-		var newRatingA;
+	calculate_new_rating = (score: number, ratingA: number, ratingB: number) => {
+		var newRatingA: number;
 		newRatingA = ratingA + K * (score - this.calculate_expected_score(ratingA, ratingB))
 		if (newRatingA - ratingA > maxUpdate) {
 			newRatingA = ratingA + maxUpdate;
@@ -65,13 +75,13 @@ class BugElo extends Component {
 		return newRatingA;
 	}
 
-	calculate_expected_score = (ratingA, ratingB) => {
+	calculate_expected_score = (ratingA: number, ratingB: number) => {
 		return 1 / (1 + 10**((ratingB - ratingA)/400))
 	}
 
 	chooseBugsHandler = () => {
-		var bugAIndex = Math.floor(Math.random()*this.state.bugs.length);
-		var bugBIndex;
+		var bugAIndex: number = Math.floor(Math.random()*this.state.bugs.length);
+		var bugBIndex: number;
 		do {
 			bugBIndex = Math.floor(Math.random()*this.state.bugs.length);
 		} while (bugAIndex === bugBIndex)
@@ -83,12 +93,12 @@ class BugElo extends Component {
 	}
 
 	makeBugsFight = () => {
-		var probAWins = this.calculate_expected_score(
+		var probAWins: number = this.calculate_expected_score(
 			this.state.bugs[this.state.bugAIndex].trueElo,
 			this.state.bugs[this.state.bugBIndex].trueElo)
 		console.log("[BugElo.js] probAWins: ", probAWins)
-		var score;
-		var randomVal = Math.random();
+		var score: number;
+		var randomVal: number = Math.random();
 
 		if (randomVal < probAWins) {
 			score = 1;
@@ -98,19 +108,19 @@ class BugElo extends Component {
 
 		console.log("[BugElo.js] score: ", score)
 		
-		var newRatingA = this.calculate_new_rating(
+		var newRatingA: number = this.calculate_new_rating(
 			score,
 			this.state.bugs[this.state.bugAIndex].currentElo,
 			this.state.bugs[this.state.bugBIndex].currentElo,
 		);
-		var newRatingB = this.calculate_new_rating(
+		var newRatingB: number = this.calculate_new_rating(
 			1 - score,
 			this.state.bugs[this.state.bugBIndex].currentElo,
 			this.state.bugs[this.state.bugAIndex].currentElo,
 		);
 
 		//Update new elo rating
-		let tempBugs = [...this.state.bugs]
+		let tempBugs:Array<Bug> = [...this.state.bugs]
 		tempBugs[this.state.bugAIndex].currentElo = newRatingA;
 		tempBugs[this.state.bugBIndex].currentElo = newRatingB;
 		this.setState({
@@ -122,9 +132,8 @@ class BugElo extends Component {
 	render() {
 
 		var bugs = [];
-		var index;
-		var bug;
-		for (index in this.state.bugs) {
+		var bug: Bug;
+		for (let index: number = 0; index < this.state.bugs.length; index++) {
 			bug = this.state.bugs[index];
 			bugs.push(
 				<DisplayBug 
@@ -144,11 +153,13 @@ class BugElo extends Component {
 				<DisplayBug
 					{...this.state.bugs[this.state.bugAIndex]}
 					onClick={this.clickBugHandler}
+					bugIndex={this.state.bugAIndex}
 					key="A"
 				/>
 				<DisplayBug
 					{...this.state.bugs[this.state.bugBIndex]}
 					onClick={this.clickBugHandler}
+					bugIndex={this.state.bugBIndex}
 					key="B"
 				/>
 				<br/>
