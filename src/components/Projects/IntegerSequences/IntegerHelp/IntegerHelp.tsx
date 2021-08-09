@@ -1,7 +1,10 @@
 import React from 'react'
 
+interface Props {
+	sequence: string;
+}
 
-const IntegerHelp = (props) => {
+const IntegerHelp = (props:Props) => {
 	var text = "";
 	/*
 	fibonacci

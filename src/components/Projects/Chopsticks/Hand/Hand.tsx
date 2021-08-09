@@ -18,7 +18,7 @@ interface Props {
 }
 
 const hand = (props:Props) => {
-	const hands = [ hand_0, hand_1, hand_2, hand_3, hand_4, hand_5 ]
+	const hands = [ hand_0, hand_1, hand_2, hand_3, hand_4, hand_5 ];
 
 	//transform: scaleY(-1)
 	//if (props.orientation === "vertical") {}

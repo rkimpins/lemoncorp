@@ -1,8 +1,15 @@
 import React from 'react'
 import classes from './Card.module.css'
 
+interface Props {
+	id: number;
+	color: string;
+	number: string | number;
+	selected: boolean;
+	selectCardHandler: (id: number) => void;
+}
 
-const Card = (props) => {
+const Card = (props:Props) => {
 	var joinedClasses;
 	if (props.selected) {
 		joinedClasses = [classes.Card, classes.Selected].join(" ");
@@ -10,7 +17,7 @@ const Card = (props) => {
 		joinedClasses = classes.Card;
 	}
 
-	var color;
+	var color: string;
 	switch (props.color) {
 		case "red":
 			color = "red";
@@ -29,7 +36,7 @@ const Card = (props) => {
 			break;
 	}
 
-	var number;
+	var number: string | number;
 	if (props.number === "wild") {
 		number = "W"
 	} else if (props.number === "skip") {
