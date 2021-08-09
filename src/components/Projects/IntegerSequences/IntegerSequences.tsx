@@ -5,16 +5,26 @@ import IntegerHelp from './IntegerHelp/IntegerHelp';
 
 import {DropdownButton, Dropdown} from 'react-bootstrap';
 
+interface State {
+	selectedSequence: string;
+	generatedValues: Array<number>;
+	showInformation: boolean;
+	generateValues: () => void;
+	numberDisplayedValues: number;
+}
 
 
-
-class IntegerSequences extends Component {
-	state = {
-		selectedSequence: "Select a sequence",
-		generatedValues: [],
-		showInformation: false,
-		generateValues: null,
-		numberDisplayedValues: 0,
+class IntegerSequences extends Component<{}, State> {
+	constructor(props:any) {
+		super(props);
+		var emptyFunc = () => {};
+		this.state = {
+			selectedSequence: "Select a sequence",
+			generatedValues: [],
+			showInformation: false,
+			generateValues: emptyFunc,
+			numberDisplayedValues: 0,
+		}
 	}
 
 	displayAnotherValue = () => {
@@ -37,7 +47,7 @@ class IntegerSequences extends Component {
 		} else {
 			//if value not previously seen, add zero
 			//if value previously seen, find out how many steps ago
-			const clone = [...this.state.generatedValues];
+			const clone: Array<number> = [...this.state.generatedValues];
 			for (let i = clone.length - 2; i >= 0; i--) {
 				if (clone[i] === clone[clone.length - 1]) {
 					clone.push(clone.length - 1 - i)
@@ -56,7 +66,7 @@ class IntegerSequences extends Component {
 
 	}
 
-	nextLevineRow = (currentRow) => {
+	nextLevineRow = (currentRow: Array<number>) => {
 		const nextRow = [];
 		// i = index of row entry currently considered
 		for (let i = currentRow.length - 1; i >= 0; i--) {
@@ -124,10 +134,10 @@ class IntegerSequences extends Component {
 			17		5347426383812697233786139576220450142250373277499130252554080838158299886992660750432
 			*/
 		} else {
-			const levineTriangle = [[2]];
-			const levineSequence = [2];
-			var currentRow = [2];
-			var nextRow
+			const levineTriangle: Array<Array<number>> = [[2]];
+			const levineSequence: Array<number> = [2];
+			var currentRow: Array<number> = [2];
+			var nextRow: Array<number>;
 			for (let i = 0; i < this.state.numberDisplayedValues; i++) {
 				nextRow = this.nextLevineRow(currentRow);
 				levineTriangle.push(nextRow);
@@ -140,38 +150,19 @@ class IntegerSequences extends Component {
 				generatedValues: levineSequence,
 			});
 		}
-
-			/*
-			const clone = [[2]];
-			for (let i = 0; i < 5; i++) {
-				const newArray = [];
-				const previousArray = clone[clone.length - 1];
-
-				for (let j = 0; i < clone[i]; j++) {
-
-			const clone = [...this.state.generatedValues];
-			const newValue = [];
-			for (let i = clone.length - 1; i >= 0; i--) {
-				for (let j = 0; j < clone[i]; j++) {
-					newValue.push(clone.length - i);
-				}
-			}
-			this.setState({
-				generatedValues: [...this.state.generatedValues, ...newValue],
-			});
-			*/
 	}
+
 	generateNonRepeatingBinarySequence = () => {
 		//1 + 0 + 01 + 0110 + 01101001 + 011010011001 + 0110100110010110 + ...
 		console.log("[IntegerSequences] generateNonRepeatingBinarySequence()");
-		var generatedValues = this.state.generatedValues;
+		var generatedValues: Array<number> = this.state.generatedValues;
 		//const generationIncrements = 10;
 		if (this.state.generatedValues.length === 0) {
 			this.setState({
 				generatedValues: [1],
 			})
 		} else {
-			const clone = [...generatedValues]
+			const clone: Array<number> = [...generatedValues]
 			for (let i = 0; i < clone.length; i++) {
 				if (clone[i] === 0) {
 					clone[i] = 1;
@@ -185,7 +176,7 @@ class IntegerSequences extends Component {
 		}
 	}
 
-	isPrime = (n) => {
+	isPrime = (n: number) => {
 		if (n < 2) {
 			return false;
 		}
@@ -203,7 +194,7 @@ class IntegerSequences extends Component {
 				generatedValues: [2],
 			})
 		} else {
-			const clone = [...this.state.generatedValues]
+			const clone: Array<number> = [...this.state.generatedValues]
 			let nextPrime = clone[clone.length - 1] + 1;
 			while (!this.isPrime(nextPrime)) {
 				nextPrime++;
@@ -224,8 +215,8 @@ class IntegerSequences extends Component {
 	*/
 
 	generateFibonacciSequence = () => {
-		var generatedValues;
-		const generationIncrements = 10;
+		var generatedValues: Array<number>;
+		const generationIncrements: number = 10;
 		if (this.state.generatedValues.length === 0) {
 			generatedValues = [0, 1];
 			for (let i = 2; i < generationIncrements; i++) {
@@ -251,9 +242,9 @@ class IntegerSequences extends Component {
 		});
 	}
 
-	setIntegerSequence = (newSequence) => {
+	setIntegerSequence = (newSequence: string) => {
 		console.log("[IntegerSequences] setIntegerSequence()");
-		var newFunction;
+		var newFunction: () => void;
 		switch(newSequence) {
 			case "fibonacci":
 				newFunction = this.generateFibonacciSequence;
@@ -275,6 +266,7 @@ class IntegerSequences extends Component {
 				break;
 			default:
 				console.log("[IntegerSequences.js] setIntegerSequence() invalid newSequence value");
+				newFunction = () => {};
 				break;
 		}
 
@@ -290,21 +282,12 @@ class IntegerSequences extends Component {
 
 
 	render () {
-		var info;
+		var info: any;
 		if (this.state.showInformation) {
-			info = "Hello";
 			info = <IntegerHelp sequence={this.state.selectedSequence} />
 		} else {
 			info = "";
 		}
-
-		//console.log(this.nextLevineRow([2]));
-		//console.log(this.nextLevineRow([1,1]));
-		//console.log(this.nextLevineRow([1,2]));
-		//console.log(this.nextLevineRow([1, 1,2]));
-		//console.log(this.nextLevineRow([1, 1, 2, 3]));
-		//here
-		//console.log(this.nextLevineRow([2]));
 
 		/* Integer Sequences
 			fibonacci
