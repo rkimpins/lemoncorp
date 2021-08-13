@@ -41,6 +41,7 @@ const hand = (props:Props) => {
 		<div className={classes.Hand}>
 			<img 
 				className={img_selected} 
+				id={props.value.toString()}
 				src={hands[props.value]} 
 				onClick={() => props.onClick(props.index)}
 				alt={alt_message}/>

@@ -18,8 +18,8 @@ class Chopsticks extends Component<{}, State> {
 		super(props);
 		this.state = {
 			hands: [
-				[3, 4],
-				[3, 4],
+				[1, 1],
+				[1, 1],
 			],
 			select_hand: null,
 			turn: 0,
@@ -223,7 +223,11 @@ class Chopsticks extends Component<{}, State> {
 						{swap_button_p1_h2}
 					</div>
 				</div>
-				<button onClick={this.reset_game_handler}>Reset Game</button>
+				<button 
+					id="reset_game"
+					onClick={this.reset_game_handler}>
+						Reset Game
+				</button>
 				<h1>{victory_message}</h1>
 				<div className={classes.Player2}>
 					<Hand 
