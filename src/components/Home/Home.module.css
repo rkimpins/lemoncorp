@@ -1,0 +1,8 @@
+.Home div {
+	display: grid;
+	grid-template-columns: auto;
+	border: 10px solid #e5e5e5;
+}
+
+.Home h1 {
+}

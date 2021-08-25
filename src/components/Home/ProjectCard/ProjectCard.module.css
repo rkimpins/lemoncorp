@@ -1,0 +1,13 @@
+.ProjectCard {
+	display: flex;
+	flex-direction: row;
+}
+.ProjectCard h3 {
+	border: 1px solid #ccc;
+}
+.ProjectCard div {
+	border: 1px solid #ccc;
+}
+.ProjectCard img {
+	border: 1px solid #ccc;
+}

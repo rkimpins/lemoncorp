@@ -1,17 +1,13 @@
 import React from 'react';
+import classes from './ProjectCard.module.css';
 
 
 const ProjectCard = (props) => (
-	<div>
-		<div className="project-card-title">
-			<h3>{props.title}</h3>
-		</div>
-		<div className="project-card-description">
-			<p>{props.description}</p>
-		</div>
+	<div className={classes.ProjectCard}>
+		<h3>{props.title}</h3>
+		<p>{props.description}</p>
 		<img src={props.image} />
 	</div>
 );
 
 export default ProjectCard;
-
