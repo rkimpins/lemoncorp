@@ -10,19 +10,22 @@ class Voronoi extends Component {
 			colors: ["blue", "green", "red", "yellow", "pink", "cyan", "orange", "white"],
 			resolution: 1,
 		}
-		this.points = [
-				//{x:45, y:100},
-				//{x:100, y:200},
-				//{x: 89, y: 62},
-				//{x: 410, y:17},
-				//{x:101, y:85},
-				//{x:298, y:245},
-				//{x:345, y:198}
-			];
+		this.points = [ ];
+
+		// Test Points
+		//[{x:45, y:100},
+		//{x:100, y:200},
+		//{x: 89, y: 62},
+		//{x: 410, y:17},
+		//{x:101, y:85},
+		//{x:298, y:245},
+		//{x:345, y:198}]
+
+		this.distance_function = this.n2_euclidean_distance;
 	}
 
 	draw_canvas = () => {
-		this.draw_distances(this.n2_euclidean_distance);
+		this.draw_distances(this.distance_function);
 		this.draw_points();
 	}
 
@@ -41,51 +44,25 @@ class Voronoi extends Component {
 		this.context.lineWidth = 1;
 		this.context.strokeStyle = "black";
 		this.context.stroke();
-
-		//this.context.fillStyle="red";
-		//this.context.fillRect(point.x-2, point.y-2, 2, 2)
-		/*
-		this.context.beginPath();
-		this.context.arc(point.x, point.y, 40, 0, 2*Math.PI);
-		this.context.fillStyle="red";
-		//this.context.fill()
-		//Add these to give our circle a border
-		this.context.lineWidth = 5;
-		this.context.strokeStyle = "#003300";
-		this.context.stroke();
-		*/
 	}
 
 	get_offset = () => {
 		let canvasElem = document.querySelector("canvas");
 		let rect = canvasElem.getBoundingClientRect();
-		console.log(rect.left.toString() + " " + rect.top.toString());
 		return rect
 	}
 
 	handleClick = (event) => {
 		//Calculate and format the clicked point
-		console.log(event.clientX.toString() + " " + event.clientY.toString());
+		console.log(this.distance_function);
 		let offset = this.get_offset();
-		var point = {x: event.clientX-offset.left, y: event.clientY-offset.top}
+		var point = {x: Math.round(event.clientX-offset.left), y: Math.round(event.clientY-offset.top)}
+		console.log(point.x.toString() + " " + point.y.toString());
 
 		// Add click to list of points
 		this.points = [...this.points, point];
 		
-
-		// State Version (broken)
-		//this.setState({
-		//	points: [
-		//		...this.state.points, point
-		//	],
-		//})
-
-		this.context.fillStyle="red";
-		this.context.fillRect(point.x-2, point.y-2, 2, 2)
-
 		this.draw_canvas()
-
-		//this.draw_distances(this.n2_euclidean_distance);
 	}
 
 
@@ -99,8 +76,6 @@ class Voronoi extends Component {
 				closest_distance = distance;
 			}
 		}
-		//console.log("closest_index: %d", closest_index);
-		//console.log("closest_distance: %d", closest_distance);
 		return this.state.colors[closest_index];
 	}
 
@@ -131,14 +106,58 @@ class Voronoi extends Component {
 		return Math.abs(point2.x - point1.x) + Math.abs(point2.y - point1.y);
 	}
 
-	componentDidMount() {
+	chessboard_distance = (point1, point2) => {
+		return 0;
+	}
+
+	np_euclidean_distance = (point1, point2) => {
+		return 0;
+	}
+
+	change_distance = (distance_name) => {
+		console.log("Distance changed to:", distance_name);
+		switch(distance_name) {
+			case "n1":
+				this.distance_function = this.n1_euclidean_distance;
+				break;
+			case "n2":
+				this.distance_function = this.n2_euclidean_distance;
+				break;
+			case "manhattan":
+				this.distance_function = this.manhattan_distance;
+				break;
+			case "chessboard":
+				//TODO change this
+				this.distance_function = this.chessboard_distance;
+				break;
+			case "np":
+				//TODO change this
+				this.distance_function = this.np_euclidean_distance;
+				break;
+			default:
+				this.distance_function = this.n2_euclidean_distance;
+				break;
+		}
+		this.draw_canvas();
+	}
+
+	clear_canvas = () => {
+		//this.points = [];
+		//this.context.fillStyle='#000000';
+		//this.context.fillRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+	}
+
+	draw_blank_screen = () => {
 		this.context.fillStyle='#000000';
 		this.context.fillRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+
+	}
+
+	componentDidMount() {
+		this.draw_blank_screen();
 	}
 
 	componentDidUpdate() {
-		//this.context.fillStyle='#00ff00';
-		//this.context.fillRect(0, 0, this.context.canvas.width/2, this.context.canvas.height/2);
 	}
 
 	render() {
@@ -150,6 +169,12 @@ class Voronoi extends Component {
 				style={{border:"1px solid #000000"}}>
 					Interactive Voronoi diagram
 				</canvas>
+				<button onClick={this.clear_canvas()}>Clear Screen</button>
+				<button onClick={() => {this.change_distance("n2")}}>Use Euclidean Distance (2-Norm)</button>
+				<button onClick={() => {this.change_distance("manhattan")}}>Use Manhattan Distance</button>
+				<button onClick={() => {this.change_distance("n1")}}>Use 1-Norm Distance</button>
+				<button onClick={() => {this.change_distance("np")}}>Use p-Norm Distance</button>
+				<button onClick={() => {this.change_distance("chessboard")}}>Use Chessboard Distance</button>
 			</div>
 		);
 	}
