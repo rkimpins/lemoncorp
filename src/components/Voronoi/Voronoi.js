@@ -36,8 +36,8 @@ class Voronoi extends Component {
 	}
 
 	draw_points = () => {
-		for (let i = 0; i < this.state.points.length; i = i + this.state.resolution) {
-			this.draw_point(this.state.points[i]);
+		for (let i = 0; i < this.points.length; i = i + this.state.resolution) {
+			this.draw_point(this.points[i]);
 		}
 	}
 
@@ -79,6 +79,10 @@ class Voronoi extends Component {
 		var point = {x: event.clientX-offset.left, y: event.clientY-offset.top}
 
 		// Add click to list of points
+		this.points = [...this.points, point];
+		
+
+		// State Version (broken)
 		//this.setState({
 		//	points: [
 		//		...this.state.points, point
@@ -97,8 +101,8 @@ class Voronoi extends Component {
 	calculate_draw_color = (point, distance_function) => {
 		var closest_index;
 		var closest_distance = Infinity;
-		for (let i = 0; i < this.state.points.length; i++) {
-			let distance = distance_function(point, this.state.points[i])
+		for (let i = 0; i < this.points.length; i++) {
+			let distance = distance_function(point, this.points[i])
 			if (distance < closest_distance) {
 				closest_index = i;
 				closest_distance = distance;
