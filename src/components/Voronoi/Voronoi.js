@@ -6,27 +6,18 @@ class Voronoi extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			points: [
-				{x:45, y:100},
-				{x:100, y:200},
-				{x: 89, y: 62},
-				{x: 410, y:17},
-				{x:101, y:85},
-				{x:298, y:245},
-				{x:345, y:198}
-			],
 			//TODO add better color system
 			colors: ["blue", "green", "red", "yellow", "pink", "cyan", "orange", "white"],
 			resolution: 1,
 		}
 		this.points = [
-				{x:45, y:100},
-				{x:100, y:200},
-				{x: 89, y: 62},
-				{x: 410, y:17},
-				{x:101, y:85},
-				{x:298, y:245},
-				{x:345, y:198}
+				//{x:45, y:100},
+				//{x:100, y:200},
+				//{x: 89, y: 62},
+				//{x: 410, y:17},
+				//{x:101, y:85},
+				//{x:298, y:245},
+				//{x:345, y:198}
 			];
 	}
 
@@ -44,7 +35,7 @@ class Voronoi extends Component {
 	draw_point = (point) => {
 		// Draw a circle where our point is
 		this.context.beginPath();
-		this.context.arc(point.x, point.y, 5, 0, 2*Math.PI);
+		this.context.arc(point.x, point.y, 3, 0, 2*Math.PI);
 		this.context.fillStyle="black";
 		this.context.fill()
 		this.context.lineWidth = 1;
