@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Button } from 'react-bootstrap';
 //import classes from './Voronoi.module.css';
 
 class Voronoi extends Component {
@@ -54,10 +55,10 @@ class Voronoi extends Component {
 
 	handleClick = (event) => {
 		//Calculate and format the clicked point
-		console.log(this.distance_function);
+		//console.log(this.distance_function);
 		let offset = this.get_offset();
 		var point = {x: Math.round(event.clientX-offset.left), y: Math.round(event.clientY-offset.top)}
-		console.log(point.x.toString() + " " + point.y.toString());
+		//console.log(point.x.toString() + " " + point.y.toString());
 
 		// Add click to list of points
 		this.points = [...this.points, point];
@@ -82,11 +83,8 @@ class Voronoi extends Component {
 	draw_distances = (distance_function) => {
 		for (let i = 0; i < this.context.canvas.width; i++) {
 			for (let j = 0; j < this.context.canvas.height; j++) {
-
-				this.context.fillStyle='#ff0000';
 				this.context.fillStyle=this.calculate_draw_color({x:i, y:j}, distance_function);
 				this.context.fillRect(i, j, 1, 1);
-
 			}
 		}
 	}
@@ -120,37 +118,15 @@ class Voronoi extends Component {
 		return Math.abs(point2.y - point1.y);
 	}
 
+	// Will visually be equivalent to n2_euclidean_distance but will be faster
+	squared_euclidean_distance = (point1, point2) => {
+		return (point1.x - point2.x) ** 2 + (point1.y - point2.y) ** 2;
+	}
 
+	//TODO Add information about distance!!
 	change_distance = (new_distance_function) => {
-		console.log("Distance changed to:", new_distance_function);
+		//console.log("Distance changed to:", new_distance_function);
 		this.distance_function = new_distance_function;
-
-		/*
-		switch(distance_name) {
-			case "n1":
-				this.distance_function = this.n1_euclidean_distance;
-				break;
-			case "n2":
-				this.distance_function = this.n2_euclidean_distance;
-				break;
-			case "manhattan":
-				this.distance_function = this.manhattan_distance;
-				break;
-			case "chessboard":
-				//TODO change this
-				this.distance_function = this.chessboard_distance;
-				break;
-			case "np":
-				//TODO change this
-				this.distance_function = this.np_euclidean_distance;
-				break;
-			default:
-				this.distance_function = this.n2_euclidean_distance;
-				break;
-			//TODO add canberra distance, chessboard distance, np distance, maybe map stuff?
-			//infinity norm distance / chebyshev distance = chessboard, remove norm 1 because it is manhattan
-			//Add information about distance!!
-		*/
 		this.draw_canvas();
 	}
 
@@ -196,7 +172,8 @@ class Voronoi extends Component {
 				<button 
 					onClick={() => {
 						this.change_distance(this.np_euclidean_distance(parseInt(document.getElementById("p_input").value)))}}>
-					Use p-Norm Distance</button>
+					Use p-Norm Distance
+				</button>
 			</div>
 		);
 	}
