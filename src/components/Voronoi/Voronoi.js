@@ -161,7 +161,6 @@ class Voronoi extends Component {
 				<button onClick={this.draw_blank_screen}>Clear Screen</button>
 				<button onClick={() => {this.change_distance(this.n2_euclidean_distance)}}>Use Euclidean Distance / 2-Norm</button>
 				<button onClick={() => {this.change_distance(this.manhattan_distance)}}>Use Manhattan / 1-Norm Distance</button>
-				<button onClick={() => {this.change_distance(null)}}>Use p-Norm Distance</button>
 				<button 
 					onClick={() => {this.change_distance(this.chessboard_distance)}}>
 					Use Chebyshev / Chessboard / Infinity-Norm Distance
@@ -172,7 +171,7 @@ class Voronoi extends Component {
 				<button 
 					onClick={() => {
 						this.change_distance(this.np_euclidean_distance(parseInt(document.getElementById("p_input").value)))}}>
-					Use p-Norm Distance
+					{"<< Use p-Norm Distance"}
 				</button>
 			</div>
 		);
