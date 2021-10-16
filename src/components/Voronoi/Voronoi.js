@@ -98,24 +98,34 @@ class Voronoi extends Component {
 			)
 	}
 
-	n1_euclidean_distance = (point1, point2) => {
-		return Math.abs(point2.x - point1.x) + Math.abs(point2.y - point1.y);
-	}
-
 	manhattan_distance = (point1, point2) => {
 		return Math.abs(point2.x - point1.x) + Math.abs(point2.y - point1.y);
 	}
 
 	chessboard_distance = (point1, point2) => {
-		return 0;
+		return Math.max(Math.abs(point2.x - point1.x), Math.abs(point2.y - point1.y));
 	}
 
-	np_euclidean_distance = (point1, point2) => {
-		return 0;
+	np_euclidean_distance = (p) => {
+		return (point1, point2) => {
+			return (Math.abs(point2.x - point1.x) ** p + Math.abs(point2.y - point1.y) ** p) ** (1/p)
+		}
 	}
 
-	change_distance = (distance_name) => {
-		console.log("Distance changed to:", distance_name);
+	x_distance = (point1, point2) => {
+		return Math.abs(point2.x - point1.x);
+	}
+
+	y_distance = (point1, point2) => {
+		return Math.abs(point2.y - point1.y);
+	}
+
+
+	change_distance = (new_distance_function) => {
+		console.log("Distance changed to:", new_distance_function);
+		this.distance_function = new_distance_function;
+
+		/*
 		switch(distance_name) {
 			case "n1":
 				this.distance_function = this.n1_euclidean_distance;
@@ -137,7 +147,10 @@ class Voronoi extends Component {
 			default:
 				this.distance_function = this.n2_euclidean_distance;
 				break;
-		}
+			//TODO add canberra distance, chessboard distance, np distance, maybe map stuff?
+			//infinity norm distance / chebyshev distance = chessboard, remove norm 1 because it is manhattan
+			//Add information about distance!!
+		*/
 		this.draw_canvas();
 	}
 
@@ -150,7 +163,7 @@ class Voronoi extends Component {
 	draw_blank_screen = () => {
 		this.context.fillStyle='#000000';
 		this.context.fillRect(0, 0, this.context.canvas.width, this.context.canvas.height);
-
+		this.points = [];
 	}
 
 	componentDidMount() {
@@ -169,12 +182,21 @@ class Voronoi extends Component {
 				style={{border:"1px solid #000000"}}>
 					Interactive Voronoi diagram
 				</canvas>
-				<button onClick={this.clear_canvas()}>Clear Screen</button>
-				<button onClick={() => {this.change_distance("n2")}}>Use Euclidean Distance (2-Norm)</button>
-				<button onClick={() => {this.change_distance("manhattan")}}>Use Manhattan Distance</button>
-				<button onClick={() => {this.change_distance("n1")}}>Use 1-Norm Distance</button>
-				<button onClick={() => {this.change_distance("np")}}>Use p-Norm Distance</button>
-				<button onClick={() => {this.change_distance("chessboard")}}>Use Chessboard Distance</button>
+				<button onClick={this.draw_blank_screen}>Clear Screen</button>
+				<button onClick={() => {this.change_distance(this.n2_euclidean_distance)}}>Use Euclidean Distance / 2-Norm</button>
+				<button onClick={() => {this.change_distance(this.manhattan_distance)}}>Use Manhattan / 1-Norm Distance</button>
+				<button onClick={() => {this.change_distance(null)}}>Use p-Norm Distance</button>
+				<button 
+					onClick={() => {this.change_distance(this.chessboard_distance)}}>
+					Use Chebyshev / Chessboard / Infinity-Norm Distance
+				</button>
+				<button onClick={() => {this.change_distance(this.x_distance)}}>Use X-Distance</button>
+				<button onClick={() => {this.change_distance(this.y_distance)}}>Use Y-Distance</button>
+				<input type="number" id="p_input" />
+				<button 
+					onClick={() => {
+						this.change_distance(this.np_euclidean_distance(parseInt(document.getElementById("p_input").value)))}}>
+					Use p-Norm Distance</button>
 			</div>
 		);
 	}
