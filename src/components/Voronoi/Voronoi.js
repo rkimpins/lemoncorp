@@ -104,6 +104,10 @@ class Voronoi extends Component {
 		return Math.max(Math.abs(point2.x - point1.x), Math.abs(point2.y - point1.y));
 	}
 
+	min_coord_distance = (point1, point2) => {
+		return Math.min(Math.abs(point2.x - point1.x), Math.abs(point2.y - point1.y));
+	}
+
 	np_euclidean_distance = (p) => {
 		return (point1, point2) => {
 			return (Math.abs(point2.x - point1.x) ** p + Math.abs(point2.y - point1.y) ** p) ** (1/p)
@@ -162,8 +166,12 @@ class Voronoi extends Component {
 				<button onClick={() => {this.change_distance(this.n2_euclidean_distance)}}>Use Euclidean Distance / 2-Norm</button>
 				<button onClick={() => {this.change_distance(this.manhattan_distance)}}>Use Manhattan / 1-Norm Distance</button>
 				<button 
-					onClick={() => {this.change_distance(this.chessboard_distance)}}>
+					onClick={() => {this.change_distance(this.coord_distance)}}>
 					Use Chebyshev / Chessboard / Infinity-Norm Distance
+				</button>
+				<button 
+					onClick={() => {this.change_distance(this.min_chessboard_distance)}}>
+					Use Minimum Coordinate Distance
 				</button>
 				<button onClick={() => {this.change_distance(this.x_distance)}}>Use X-Distance</button>
 				<button onClick={() => {this.change_distance(this.y_distance)}}>Use Y-Distance</button>
