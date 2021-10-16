@@ -173,7 +173,7 @@ class Voronoi extends Component {
 					Use Chebyshev / Chessboard / Infinity-Norm Distance
 				</button>
 				<button 
-					onClick={() => {this.change_distance(this.min_chessboard_distance)}}>
+					onClick={() => {this.change_distance(this.min_coord_distance)}}>
 					Use Minimum Coordinate Distance
 				</button>
 				<button onClick={() => {this.change_distance(this.x_distance)}}>Use X-Distance</button>
