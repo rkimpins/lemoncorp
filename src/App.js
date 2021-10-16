@@ -14,6 +14,7 @@ import Chopsticks from './components/Projects/Chopsticks/Chopsticks';
 import IntegerSequences from './components/Projects/IntegerSequences/IntegerSequences';
 import Phase10 from './components/Projects/Phase10/Phase10';
 import voronoi from './components/Voronoi/Voronoi';
+import RandomColors from './components/RandomColors/RandomColors';
 
 
 import NavigationBar from './components/Navigation/NavigationBar';
@@ -36,6 +37,7 @@ class App extends Component {
           <Route exact path="/IntegerSequences" component={IntegerSequences}></Route>
           <Route exact path="/Phase10" component={Phase10}></Route>
           <Route exact path="/Voronoi" component={voronoi}></Route>
+          <Route exact path="/RandomColors" component={RandomColors}></Route>
         </Router>
       </div>
     );

@@ -169,7 +169,7 @@ class Voronoi extends Component {
 				<button onClick={() => {this.change_distance(this.n2_euclidean_distance)}}>Use Euclidean Distance / 2-Norm</button>
 				<button onClick={() => {this.change_distance(this.manhattan_distance)}}>Use Manhattan / 1-Norm Distance</button>
 				<button 
-					onClick={() => {this.change_distance(this.coord_distance)}}>
+					onClick={() => {this.change_distance(this.chessboard_distance)}}>
 					Use Chebyshev / Chessboard / Infinity-Norm Distance
 				</button>
 				<button 
