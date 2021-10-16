@@ -141,8 +141,11 @@ class Voronoi extends Component {
 	}
 
 	draw_blank_screen = () => {
-		this.context.fillStyle='#000000';
+		this.context.fillStyle="black";
 		this.context.fillRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+		this.context.font = "30px Arial";
+		this.context.fillStyle="white";
+		this.context.fillText("Click Me!", this.context.canvas.width/2 - 60, this.context.canvas.height/2 + 15);
 		this.points = [];
 	}
 
