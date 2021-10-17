@@ -1,6 +1,6 @@
 import React from 'react';
 //import resume_file from '../../files/resume.pdf';
-//import classes from './Resume.module.css';
+import classes from './Resume.module.css';
 
 const resume = () => {
 	return (
