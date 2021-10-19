@@ -88,7 +88,11 @@ class RandomColors extends Component {
 		let divs = [];
 		for (let i = 0; i < colors.length; i++) {
 			divs.push(
-			<div key={colors[i]} style={{backgroundColor: colors[i]}} className={classes.GridDiv} >
+			<div
+				key={colors[i]}
+				style={{backgroundColor: colors[i]}}
+				className={classes.GridDiv}
+				onClick={() => {this.copyColorToClipboard(colors[i])} } >
 				{colors[i]}
 			</div>);
 		}
@@ -115,6 +119,11 @@ class RandomColors extends Component {
 			}
 		}
 		return false;
+	}
+
+	copyColorToClipboard = (color) => {
+		navigator.clipboard.writeText(color);
+		alert("Copied the color hex value: " + color);
 	}
 
 	generateColorsRandomMethod = (num_colors, min_allowed_distance) => {
