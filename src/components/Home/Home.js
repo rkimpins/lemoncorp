@@ -6,6 +6,7 @@ import chopsticksScreenshot from '../../images/ProjectScreenshot/chopsticks.png'
 import integerSequencesScreenshot from '../../images/ProjectScreenshot/integerSequences.png';
 import Phase10Screenshot from '../../images/ProjectScreenshot/phase10.png';
 import warScreenshot from '../../images/ProjectScreenshot/war.png';
+import voronoi from '../../images/ProjectScreenshot/voronoi.png';
 
 import classes from './Home.module.css';
 
@@ -13,6 +14,12 @@ const home = () => (
     <div className={classes.Home}>
         <h1 className={classes.Home}>Recent projects</h1>
         <div className={classes.Home}>
+            <ProjectCard
+                title="Voronoi"
+                description="A simple implementation of the Voronoi diagram algorithm."
+                image={voronoi}
+                link="Voronoi"
+            />
             <ProjectCard
                 title="bugElo"
                 description="A simple demonstration of the way elo works using fighting bugs as an example. Pick your bug and have them face off to see how their elo changes."
