@@ -99,7 +99,6 @@ class RandomColors extends Component {
 		return divs;
 	}
 
-
 	pointDistance = (point1, point2) => {
 		var distance = 0;
 		for (let i = 0; i < 3; i++) {
@@ -154,12 +153,28 @@ class RandomColors extends Component {
 			}
 		}
 	}
+	copyAllColorsToClipboard = () => {
+		let allColors = "";
+		let colors = this.pointsToColors();
+		for (let i = 0; i < colors.length; i++) {
+			if (i === colors.length - 1) {
+				allColors += colors[i];
+			} else {
+				allColors = allColors + colors[i] + ", ";
+			}
+		}
+		navigator.clipboard.writeText(allColors);
+		alert("Copied all color hex values to clipboard");
+	}
 
 	render() {
 		return (
 			<div>
 				<button onClick={() => this.generateColorsRandomMethod(10, 1)}>
 					Generate Colors
+				</button>
+				<button onClick={() => this.copyAllColorsToClipboard()}>
+					Copy All Colors
 				</button>
 				<div className={classes.GridContainer}>
 					{this.colorsToDivs()}

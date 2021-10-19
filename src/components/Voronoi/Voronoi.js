@@ -6,11 +6,12 @@ class Voronoi extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			//TODO add better color system
-			colors: ["blue", "green", "red", "yellow", "pink", "cyan", "orange", "white"],
 			resolution: 1,
 		}
-		this.points = [ ];
+		this.points = [];
+		this.colors = [];
+
+		this.version = 2;
 
 		// Test Points
 		//[{x:45, y:100},
@@ -61,9 +62,30 @@ class Voronoi extends Component {
 
 		// Add click to list of points
 		this.points = [...this.points, point];
+
+		this.addRandomColor();
 		
 		this.draw_canvas()
 	}
+
+	addRandomColor = () => {
+		if (this.version === 1) {
+			// Old version with repeating final color
+			// added because a friend requested me to
+			this.colors = [
+				"blue", "green", "red", "yellow", "pink", "cyan", "orange", "white",
+				"red", "red", "red", "red", "red", "red", "red", "red", "red", "red",
+				"red", "red", "red", "red", "red", "red", "red", "red", "red", "red",
+				"red", "red", "red", "red", "red", "red", "red", "red", "red", "red",
+				"red", "red", "red", "red", "red", "red", "red", "red", "red", "red",
+				"red", "red", "red", "red", "red", "red", "red", "red", "red", "red",
+			];
+		} else if (this.version === 2) {
+			let newColor = this.randomColor();
+			this.colors = [...this.colors, newColor];
+		}
+	}
+
 
 
 	calculate_draw_color = (point, distance_function) => {
@@ -76,8 +98,35 @@ class Voronoi extends Component {
 				closest_distance = distance;
 			}
 		}
-		return this.state.colors[closest_index];
+		return this.colors[closest_index];
 	}
+
+
+	randomIntegerInRange = (min, max) => {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+	randomColor = () => {
+		// Create random point
+		let point = [];
+		for (let i = 0; i < 3; i++) {
+			point.push(this.randomIntegerInRange(0, 255));
+		}
+		let color = '#';
+		for (let i = 0; i < 3; i++) {
+			if (point[i] === 16) {
+				color += (point[i] - 1).toString(16);
+			} else {
+				let stringInt = point[i].toString(16);
+				if (stringInt.length === 1) {
+					color += '0' + stringInt;
+				} else {
+					color += stringInt;
+				}
+			}
+		}
+		return color;
+    }
 
 	draw_distances = (distance_function) => {
 		for (let i = 0; i < this.context.canvas.width; i++) {
@@ -165,6 +214,8 @@ class Voronoi extends Component {
 					Interactive Voronoi diagram
 				</canvas>
 				<button onClick={this.draw_blank_screen}>Clear Screen</button>
+				<button onClick={() => {this.version = 1;} }>Color Version 1</button>
+				<button onClick={() => {this.version = 2;} }>Color version 2</button>
 				<button onClick={() => {this.change_distance(this.n2_euclidean_distance)}}>Use Euclidean Distance / 2-Norm</button>
 				<button onClick={() => {this.change_distance(this.manhattan_distance)}}>Use Manhattan / 1-Norm Distance</button>
 				<button 
