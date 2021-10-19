@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-//import classes from './RandomColors.module.css';
+import classes from './RandomColors.module.css';
 
 class RandomColors extends Component {
 
@@ -53,7 +53,12 @@ class RandomColors extends Component {
 			if (point[i] === 16) {
 				color += (point[i] - 1).toString(16);
 			} else {
-				color += point[i].toString(16);
+				let stringInt = point[i].toString(16);
+				if (stringInt.length === 1) {
+					color += '0' + stringInt;
+				} else {
+					color += stringInt;
+				}
 			}
 		}
 		return color;
@@ -83,7 +88,9 @@ class RandomColors extends Component {
 		let divs = [];
 		for (let i = 0; i < colors.length; i++) {
 			divs.push(
-			<div key={colors[i]} style={{backgroundColor: colors[i], height: '10px'}}></div>);
+			<div key={colors[i]} style={{backgroundColor: colors[i]}} className={classes.GridDiv} >
+				{colors[i]}
+			</div>);
 		}
 		return divs;
 	}
@@ -101,7 +108,7 @@ class RandomColors extends Component {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
-	pointToCloseToPoints = (point, points, min_allowed_distance) => {
+	pointTooCloseToPoints = (point, points, min_allowed_distance) => {
 		for (let i = 0; i < points.length; i++) {
 			if (this.pointDistance(point, points[i]) < min_allowed_distance) {
 				return true;
@@ -127,7 +134,7 @@ class RandomColors extends Component {
 				point.push(this.randomIntegerInRange(0, 255));
 			}
 			// Add point to points if not too close to other points
-			if (!this.pointToCloseToPoints(point, this.state.points, min_allowed_distance)) {
+			if (!this.pointTooCloseToPoints(point, this.state.points, min_allowed_distance)) {
 				this.setState({
 					points: [...this.state.points, point],
 				})
@@ -145,8 +152,9 @@ class RandomColors extends Component {
 				<button onClick={() => this.generateColorsRandomMethod(10, 1)}>
 					Generate Colors
 				</button>
-				<p>{this.pointsToString()}</p>
-				{this.colorsToDivs()}
+				<div className={classes.GridContainer}>
+					{this.colorsToDivs()}
+				</div>
 			</div>
 		);
 	}
