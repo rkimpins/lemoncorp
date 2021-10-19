@@ -17,26 +17,31 @@ const home = () => (
                 title="bugElo"
                 description="A simple demonstration of the way elo works using fighting bugs as an example. Pick your bug and have them face off to see how their elo changes."
                 image={bugEloScreenshot}
+                link="/BugElo"
             />
             <ProjectCard
                 title="Chopsticks"
                 description="An implementation of the children's finger game 'Chopsticks'. Players take turns striking each other's hands to add their finger amount, and once both of the opponents hands reach 5 they are out."
                 image={chopsticksScreenshot}
+                link="/Chopsticks"
             />
             <ProjectCard
                 title="Integer Sequences"
                 description="Experimenting with generating different integer sequences in javascript."
                 image={integerSequencesScreenshot}
+                link="/IntegerSequences"
             />
             <ProjectCard
                 title="Phase 10"
                 description="An implementation of the game of Phase10."
                 image={Phase10Screenshot}
+                link="/Phase10"
             />
             <ProjectCard
                 title="War"
                 description="An implementation of the game of War. Useful for seeing the way that card distribution effects game outcome and the ways that wars complicate it."
                 image={warScreenshot}
+                link="/War"
             />
         </div>
     </div>
