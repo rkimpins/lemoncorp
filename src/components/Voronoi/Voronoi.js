@@ -16,8 +16,12 @@ class Voronoi extends Component {
 	}
 
 	drawCanvas = () => {
-		this.drawDistances(this.distanceFunction);
-		this.drawPoints();
+		if (this.points.length === 0) {
+			this.drawBlankScreen();
+		} else {
+			this.drawDistances(this.distanceFunction);
+			this.drawPoints();
+		}
 	}
 
 	drawPoints = () => {
