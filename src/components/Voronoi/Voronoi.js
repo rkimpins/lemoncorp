@@ -175,6 +175,22 @@ class Voronoi extends Component {
 		return (point1.x - point2.x) ** 2 + (point1.y - point2.y) ** 2;
 	}
 
+	closeXYDistance = (point1, point2) => {
+		return Math.abs(Math.abs(point2.x - point1.x) - Math.abs(point2.y - point1.y));
+	}
+
+	weighted_X_distance = (C) => {
+		return (point1, point2) => {
+			return C * (point1.x - point2.x) ** 2 + (point1.y - point2.y) ** 2;
+		}
+	}
+
+	weighted_Y_distance = (C) => {
+		return (point1, point2) => {
+			return (point1.x - point2.x) ** 2 + C * (point1.y - point2.y) ** 2;
+		}
+	}
+
 	//TODO Add information about distance!!
 	change_distance = (new_distance_function) => {
 		//console.log("Distance changed to:", new_distance_function);
@@ -228,11 +244,24 @@ class Voronoi extends Component {
 				</button>
 				<button onClick={() => {this.change_distance(this.x_distance)}}>Use X-Distance</button>
 				<button onClick={() => {this.change_distance(this.y_distance)}}>Use Y-Distance</button>
+				<button onClick={() => {this.change_distance(this.closeXYDistance)}}>Use Close XY Distance</button>
 				<input type="number" id="p_input" />
 				<button 
 					onClick={() => {
 						this.change_distance(this.np_euclidean_distance(parseInt(document.getElementById("p_input").value)))}}>
 					{"<< Use p-Norm Distance"}
+				</button>
+				<input type="number" id="cx_input" />
+				<button 
+					onClick={() => {
+						this.change_distance(this.weighted_X_distance(parseInt(document.getElementById("cx_input").value)))}}>
+					{"<< Use Weighted X Distance"}
+				</button>
+				<input type="number" id="cy_input" />
+				<button 
+					onClick={() => {
+						this.change_distance(this.weighted_Y_distance(parseInt(document.getElementById("cy_input").value)))}}>
+					{"<< Use Weighted Y Distance"}
 				</button>
 			</div>
 		);
