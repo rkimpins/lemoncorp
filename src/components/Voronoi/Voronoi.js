@@ -8,35 +8,25 @@ class Voronoi extends Component {
 		this.state = {
 			resolution: 1,
 		}
+
 		this.points = [];
 		this.colors = [];
-
 		this.version = 2;
-
-		// Test Points
-		//[{x:45, y:100},
-		//{x:100, y:200},
-		//{x: 89, y: 62},
-		//{x: 410, y:17},
-		//{x:101, y:85},
-		//{x:298, y:245},
-		//{x:345, y:198}]
-
-		this.distance_function = this.n2_euclidean_distance;
+		this.distanceFunction = this.n2EuclideanDistance;
 	}
 
-	draw_canvas = () => {
-		this.draw_distances(this.distance_function);
-		this.draw_points();
+	drawCanvas = () => {
+		this.drawDistances(this.distanceFunction);
+		this.drawPoints();
 	}
 
-	draw_points = () => {
+	drawPoints = () => {
 		for (let i = 0; i < this.points.length; i = i + this.state.resolution) {
-			this.draw_point(this.points[i]);
+			this.drawPoint(this.points[i]);
 		}
 	}
 
-	draw_point = (point) => {
+	drawPoint = (point) => {
 		// Draw a circle where our point is
 		this.context.beginPath();
 		this.context.arc(point.x, point.y, 3, 0, 2*Math.PI);
@@ -47,7 +37,7 @@ class Voronoi extends Component {
 		this.context.stroke();
 	}
 
-	get_offset = () => {
+	getOffset = () => {
 		let canvasElem = document.querySelector("canvas");
 		let rect = canvasElem.getBoundingClientRect();
 		return rect
@@ -56,7 +46,7 @@ class Voronoi extends Component {
 	handleClick = (event) => {
 		//Calculate and format the clicked point
 		//console.log(this.distance_function);
-		let offset = this.get_offset();
+		let offset = this.getOffset();
 		var point = {x: Math.round(event.clientX-offset.left), y: Math.round(event.clientY-offset.top)}
 		//console.log(point.x.toString() + " " + point.y.toString());
 
@@ -65,7 +55,7 @@ class Voronoi extends Component {
 
 		this.addRandomColor();
 		
-		this.draw_canvas()
+		this.drawCanvas()
 	}
 
 	addRandomColor = () => {
@@ -88,7 +78,7 @@ class Voronoi extends Component {
 
 
 
-	calculate_draw_color = (point, distance_function) => {
+	calculateDrawColor = (point, distance_function) => {
 		var closest_index;
 		var closest_distance = Infinity;
 		for (let i = 0; i < this.points.length; i++) {
@@ -128,50 +118,50 @@ class Voronoi extends Component {
 		return color;
     }
 
-	draw_distances = (distance_function) => {
+	drawDistances = (distance_function) => {
 		for (let i = 0; i < this.context.canvas.width; i++) {
 			for (let j = 0; j < this.context.canvas.height; j++) {
-				this.context.fillStyle=this.calculate_draw_color({x:i, y:j}, distance_function);
+				this.context.fillStyle=this.calculateDrawColor({x:i, y:j}, distance_function);
 				this.context.fillRect(i, j, 1, 1);
 			}
 		}
 	}
 
-	n2_euclidean_distance = (point1, point2) => {
+	n2EuclideanDistance = (point1, point2) => {
 		return Math.sqrt(
 			Math.abs(point2.x - point1.x) ** 2
 			+ Math.abs(point2.y - point1.y) ** 2
 			)
 	}
 
-	manhattan_distance = (point1, point2) => {
+	manhattanDistance = (point1, point2) => {
 		return Math.abs(point2.x - point1.x) + Math.abs(point2.y - point1.y);
 	}
 
-	chessboard_distance = (point1, point2) => {
+	chessboardDistance = (point1, point2) => {
 		return Math.max(Math.abs(point2.x - point1.x), Math.abs(point2.y - point1.y));
 	}
 
-	min_coord_distance = (point1, point2) => {
+	minCoordDistance = (point1, point2) => {
 		return Math.min(Math.abs(point2.x - point1.x), Math.abs(point2.y - point1.y));
 	}
 
-	np_euclidean_distance = (p) => {
+	npEuclideanDistance = (p) => {
 		return (point1, point2) => {
 			return (Math.abs(point2.x - point1.x) ** p + Math.abs(point2.y - point1.y) ** p) ** (1/p)
 		}
 	}
 
-	x_distance = (point1, point2) => {
+	xDistance = (point1, point2) => {
 		return Math.abs(point2.x - point1.x);
 	}
 
-	y_distance = (point1, point2) => {
+	yDistance = (point1, point2) => {
 		return Math.abs(point2.y - point1.y);
 	}
 
-	// Will visually be equivalent to n2_euclidean_distance but will be faster
-	squared_euclidean_distance = (point1, point2) => {
+	// Will visually be equivalent to n2EuclideanDistance but will be faster
+	squaredEuclideanDistance = (point1, point2) => {
 		return (point1.x - point2.x) ** 2 + (point1.y - point2.y) ** 2;
 	}
 
@@ -179,32 +169,28 @@ class Voronoi extends Component {
 		return Math.abs(Math.abs(point2.x - point1.x) - Math.abs(point2.y - point1.y));
 	}
 
-	weighted_X_distance = (C) => {
+	weightedXDistance = (C) => {
 		return (point1, point2) => {
 			return C * (point1.x - point2.x) ** 2 + (point1.y - point2.y) ** 2;
 		}
 	}
 
-	weighted_Y_distance = (C) => {
+	weightedYDistance = (C) => {
 		return (point1, point2) => {
 			return (point1.x - point2.x) ** 2 + C * (point1.y - point2.y) ** 2;
 		}
 	}
 
 	//TODO Add information about distance!!
-	change_distance = (new_distance_function) => {
-		//console.log("Distance changed to:", new_distance_function);
-		this.distance_function = new_distance_function;
-		this.draw_canvas();
+	changeDistanceFunction = (newDistanceFunction) => {
+		this.distanceFunction = newDistanceFunction;
+		this.drawCanvas();
 	}
 
 	clear_canvas = () => {
-		//this.points = [];
-		//this.context.fillStyle='#000000';
-		//this.context.fillRect(0, 0, this.context.canvas.width, this.context.canvas.height);
 	}
 
-	draw_blank_screen = () => {
+	drawBlankScreen = () => {
 		this.context.fillStyle="black";
 		this.context.fillRect(0, 0, this.context.canvas.width, this.context.canvas.height);
 		this.context.font = "30px Arial";
@@ -214,7 +200,7 @@ class Voronoi extends Component {
 	}
 
 	componentDidMount() {
-		this.draw_blank_screen();
+		this.drawBlankScreen();
 	}
 
 	componentDidUpdate() {
@@ -223,44 +209,44 @@ class Voronoi extends Component {
 	render() {
 		return (
 			<div>
-				<canvas width="500" height="300" id="voronoi_canvas"
+				<canvas width="500" height="300" id="voronoiCanvas"
 				ref={r => this.context = r.getContext('2d')} 
 				onClick={(event) => this.handleClick(event)}
 				style={{border:"1px solid #000000"}}>
 					Interactive Voronoi diagram
 				</canvas>
-				<button onClick={this.draw_blank_screen}>Clear Screen</button>
+				<button onClick={this.drawBlankScreen}>Clear Screen</button>
 				<button onClick={() => {this.version = 1;} }>Color Version 1</button>
 				<button onClick={() => {this.version = 2;} }>Color version 2</button>
-				<button onClick={() => {this.change_distance(this.n2_euclidean_distance)}}>Use Euclidean Distance / 2-Norm</button>
-				<button onClick={() => {this.change_distance(this.manhattan_distance)}}>Use Manhattan / 1-Norm Distance</button>
+				<button onClick={() => {this.changeDistanceFunction(this.n2EuclideanDistance)}}>Use Euclidean Distance / 2-Norm</button>
+				<button onClick={() => {this.changeDistanceFunction(this.manhattanDistance)}}>Use Manhattan / 1-Norm Distance</button>
 				<button 
-					onClick={() => {this.change_distance(this.chessboard_distance)}}>
+					onClick={() => {this.changeDistanceFunction(this.chessboardDistance)}}>
 					Use Chebyshev / Chessboard / Infinity-Norm Distance
 				</button>
 				<button 
-					onClick={() => {this.change_distance(this.min_coord_distance)}}>
+					onClick={() => {this.changeDistanceFunction(this.minCoordDistance)}}>
 					Use Minimum Coordinate Distance
 				</button>
-				<button onClick={() => {this.change_distance(this.x_distance)}}>Use X-Distance</button>
-				<button onClick={() => {this.change_distance(this.y_distance)}}>Use Y-Distance</button>
-				<button onClick={() => {this.change_distance(this.closeXYDistance)}}>Use Close XY Distance</button>
+				<button onClick={() => {this.changeDistanceFunction(this.xDistance)}}>Use X-Distance</button>
+				<button onClick={() => {this.changeDistanceFunction(this.yDistance)}}>Use Y-Distance</button>
+				<button onClick={() => {this.changeDistanceFunction(this.closeXYDistance)}}>Use Close XY Distance</button>
 				<input type="number" id="p_input" />
 				<button 
 					onClick={() => {
-						this.change_distance(this.np_euclidean_distance(parseInt(document.getElementById("p_input").value)))}}>
+						this.changeDistanceFunction(this.npEuclideanDistance(parseInt(document.getElementById("p_input").value)))}}>
 					{"<< Use p-Norm Distance"}
 				</button>
 				<input type="number" id="cx_input" />
 				<button 
 					onClick={() => {
-						this.change_distance(this.weighted_X_distance(parseInt(document.getElementById("cx_input").value)))}}>
+						this.changeDistanceFunction(this.weightedXDistance(parseInt(document.getElementById("cx_input").value)))}}>
 					{"<< Use Weighted X Distance"}
 				</button>
 				<input type="number" id="cy_input" />
 				<button 
 					onClick={() => {
-						this.change_distance(this.weighted_Y_distance(parseInt(document.getElementById("cy_input").value)))}}>
+						this.changeDistanceFunction(this.weightedYDistance(parseInt(document.getElementById("cy_input").value)))}}>
 					{"<< Use Weighted Y Distance"}
 				</button>
 			</div>
