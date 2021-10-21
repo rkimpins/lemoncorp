@@ -215,34 +215,44 @@ class Voronoi extends Component {
 				style={{border:"1px solid #000000"}}>
 					Interactive Voronoi diagram
 				</canvas>
+				<br/>
 				<button onClick={this.drawBlankScreen}>Clear Screen</button>
+				<br/>
 				<button onClick={() => {this.version = 1;} }>Color Version 1</button>
 				<button onClick={() => {this.version = 2;} }>Color version 2</button>
+				<br/>
 				<button onClick={() => {this.changeDistanceFunction(this.n2EuclideanDistance)}}>Use Euclidean Distance / 2-Norm</button>
+				<br/>
 				<button onClick={() => {this.changeDistanceFunction(this.manhattanDistance)}}>Use Manhattan / 1-Norm Distance</button>
+				<br/>
 				<button 
 					onClick={() => {this.changeDistanceFunction(this.chessboardDistance)}}>
 					Use Chebyshev / Chessboard / Infinity-Norm Distance
 				</button>
+				<br/>
 				<button 
 					onClick={() => {this.changeDistanceFunction(this.minCoordDistance)}}>
 					Use Minimum Coordinate Distance
 				</button>
+				<br/>
 				<button onClick={() => {this.changeDistanceFunction(this.xDistance)}}>Use X-Distance</button>
 				<button onClick={() => {this.changeDistanceFunction(this.yDistance)}}>Use Y-Distance</button>
 				<button onClick={() => {this.changeDistanceFunction(this.closeXYDistance)}}>Use Close XY Distance</button>
+				<br/>
 				<input type="number" id="p_input" />
 				<button 
 					onClick={() => {
 						this.changeDistanceFunction(this.npEuclideanDistance(parseInt(document.getElementById("p_input").value)))}}>
 					{"<< Use p-Norm Distance"}
 				</button>
+				<br/>
 				<input type="number" id="cx_input" />
 				<button 
 					onClick={() => {
 						this.changeDistanceFunction(this.weightedXDistance(parseInt(document.getElementById("cx_input").value)))}}>
 					{"<< Use Weighted X Distance"}
 				</button>
+				<br/>
 				<input type="number" id="cy_input" />
 				<button 
 					onClick={() => {
