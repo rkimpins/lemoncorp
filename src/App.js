@@ -16,6 +16,7 @@ import Phase10 from './components/Projects/Phase10/Phase10';
 import voronoi from './components/Projects/Voronoi/Voronoi';
 import RandomColors from './components/Projects/RandomColors/RandomColors';
 import IceBreakers from './components/IceBreakers/IceBreakers';
+import BlogList from './components/Blog/BlogList';
 
 
 import NavigationBar from './components/Navigation/NavigationBar';
@@ -30,6 +31,7 @@ class App extends Component {
           <Route exact path="/about" component={About}></Route>
           <Route exact path="/contact" component={Contact}></Route>
           <Route exact path="/resume" component={Resume}></Route>
+          <Route exact path="/blog" component={BlogList}></Route>
           <Route exact path="/portfolio" component={Portfolio}></Route>
           <Route exact path="/war" component={War}></Route>
           <Route exact path="/BugElo" component={BugElo}></Route>
