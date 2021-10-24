@@ -14,6 +14,7 @@ import Chopsticks from './components/Projects/Chopsticks/Chopsticks';
 import IntegerSequences from './components/Projects/IntegerSequences/IntegerSequences';
 import Phase10 from './components/Projects/Phase10/Phase10';
 import voronoi from './components/Projects/Voronoi/Voronoi';
+import ContourLines from './components/Projects/ContourLines/ContourLines';
 import RandomColors from './components/Projects/RandomColors/RandomColors';
 import IceBreakers from './components/IceBreakers/IceBreakers';
 import BlogList from './components/Blog/BlogList';
@@ -41,6 +42,7 @@ class App extends Component {
           <Route exact path="/Voronoi" component={voronoi}></Route>
           <Route exact path="/RandomColors" component={RandomColors}></Route>
           <Route exact path="/IceBreakers" component={IceBreakers}></Route>
+          <Route exact path="/ContourLines" component={ContourLines}></Route>
         </Router>
       </div>
     );

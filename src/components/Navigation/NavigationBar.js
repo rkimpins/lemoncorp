@@ -44,6 +44,7 @@ const NavigationBar = () => {
                         <NavDropdown.Item href="/Phase10">Phase 10</NavDropdown.Item>
                         <NavDropdown.Item href="/Voronoi">Voronoi</NavDropdown.Item>
                         <NavDropdown.Item href="/RandomColors">Random Colors</NavDropdown.Item>
+                        <NavDropdown.Item href="/ContourLines">Contour Lines</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
             </Navbar.Collapse>
