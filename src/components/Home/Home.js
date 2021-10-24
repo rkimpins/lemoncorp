@@ -7,6 +7,7 @@ import integerSequencesScreenshot from '../../images/ProjectScreenshot/integerSe
 import Phase10Screenshot from '../../images/ProjectScreenshot/phase10.png';
 import warScreenshot from '../../images/ProjectScreenshot/war.png';
 import voronoi from '../../images/ProjectScreenshot/voronoi.png';
+import contourLines from '../../images/ProjectScreenshot/contourLines.png';
 
 import classes from './Home.module.css';
 
@@ -15,8 +16,14 @@ const home = () => (
         <h1 className={classes.Home}>Recent projects</h1>
         <div className={classes.Home}>
             <ProjectCard
+                title="Contour Lines"
+                description="An interactive contour line diagram as a tool for exploring different metrics and distance functions."
+                image={contourLines}
+                link="ContourLines"
+            />
+            <ProjectCard
                 title="Voronoi"
-                description="A simple implementation of the Voronoi diagram algorithm."
+                description="An interactive Voronoi diagram as a tool for exploring different metrics and distance functions."
                 image={voronoi}
                 link="Voronoi"
             />
