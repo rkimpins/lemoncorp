@@ -1,0 +1,130 @@
+<html>
+	<head>
+		<title>Test Blog Post</title>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="/MathJax/MathJax.js"></script>
+		<script type="text/javascript" async src="/MathJax/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	</head>
+	<body>
+		<h1>Metrics, or how we measure distance</h1>
+		<h2>Rigorous Definition</h2>
+		<p>So what is a metric? Let's start with the axiomatic definition, and build from there</p>
+
+		From Wikipedia: 
+		<blockquote>
+		A metric on a set X is a function (called distance function or simply distance)
+
+			d : X × X → [0, ∞)
+
+		where [0, ∞) is the set of non-negative real numbers
+		and for all x , y , z ∈ X the following three axioms are satisfied:
+		<ol>
+			<li><p>Identity of Indescernibles:</p> <p>d(x, y) = 0 ⇔ x = y</p></li>
+			<li><p>Symmetry: </p><p>d(x, y) = d(y, x)</p></li>
+			<li><p>Triangle Inequality: </p><p>d(x, y) ≤ d(x, z) + d(z, y)</p></li>
+		</ol>
+		</blockquote>
+		<h2>What does this mean?</h2>
+		<h3>It's Just a Function</h3>
+		<p>
+			So a metric is just a function. It take two inputs, probably the two points we want to
+			know the distance between, and outputs a positive number between 0 and infinity.
+			(Because we can't have negative distances, and we can't have infinity distances.)
+			There are also 3 rules this function must follow!
+		</p>
+		<h3>Identity of Indescernibles</h3>
+		<p>
+			If two points are 0 distance apart, they are in fact the same point. Also, if two 
+			points are equal, then they must be 0 distance apart
+		</p>
+		<h3>Symmetry</h3>
+		<p>
+			The distance from our first point to our second point must be equal to the distance 
+			from our second point to our first point. Distance doesn't change when we swap the 
+			direction we are going in
+		</p>
+		<h3>Triangle Inequality</h3>
+		<p>
+			If we are travelling from point A to point B, we have a certain distance between them.
+			If we instead choose to take a detour and go from point A to point C and then from point C to
+			point B, the distance must be greater than or equal to our original distance.
+		</p>
+		<h2>Euclidean distance / Straight-line distance</h2>
+		<p>
+			Euclidean distance is what most people think of when they think about measuring distance.
+			It is called straight-line distance because you can imagine place a ruler between the two
+			points and using that as the measure of distance.
+			<br/>[PICTURE OF 2 BY 1 GRAPH]<br/>
+			In the graph above, if we measure the length of the line between the points with a ruler, 
+			we would get the euclidean distance. In this case, it is \sqrt{5}. How did we get this though?
+			Well, we use our old friend a^2 + b^2 = c^2
+			a^2 + b^2 = c^2 -> 1^2 + 2^2 = c^2 -> 5 = c^2 -> c = \sqrt{5}
+			The general formula given two points A and B is:
+			<blockquote>
+				d(Point_1, Point_2) = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
+			</blockquote>
+		</p>
+		<h2>A brief note on higher dimensions</h2>
+		<p>
+			We won't always be working in 2D. It is pretty common to need to find distances in 3D, 
+			and we can actually extend the definition of a metric to higher dimensions. For the Euclidean
+			distance, we get something like the following formula
+			<blockquote>
+				d(p,q) = \sqrt{\sum^n_{i=0} (p_i - q_i)^2}
+			</blockquote>
+			Now you can find the euclidean metric in an n-dimensional cartesian space. Is this helpful?
+			Not sure, but it sounds impressive. -\_o< I will just work in 2 dimensions for now, but
+			I will include the formulas for higher dimension metrics at the end :)
+		</p>
+
+		<h2>Visualizations</h2>
+		<p>
+			It can really help to get an intuitive feel for how these different metrics work. To
+			accompany this post I've created two different toys you can play with. The first is a
+			Voronoi Diagram found <a href="lemoncorp.xyz/Voronoi">here.</a> You can place points on
+			the canvas, and it will color the rest of the canvas based on which point is closest to
+			each pixel. The second is a Contour Map found <a href="lemoncorp.xyz/ContourLines">here.</a>
+			Here, we draw a few rings around each point such that every point on the ring is the same distance
+			from the point. You will often find this Contour Lines on maps to show elevation, where each point
+			on the line is the same altitude. I highly recommend you play with these to get a feel for
+			what these distances mean as you read this post. Just as a quick note, some of
+			the distance options are not actually metrics. Are you able to figure out which ones are and
+			which ones aren't?
+		</p>
+		<h2>Let's Explore Some Different Metrics</h2>
+		<h3>Manhattan Distance</h3>
+		<p>
+			The Manhattan distance is the sum of the absolute values of the differences between the 
+			coordinates of the two points.
+			<blockquote>
+				d(Point_1, Point_2) = |Point_2x - Point_1x| + |Point_2y - Point_1y|
+				d(Point_1, Point_2) = \sum^n_{i=0} |p_i - q_i|
+			</blockquote>
+			You can imagine we were driving in a city with grids of streets. We couldn't drive straight
+			to our destination, we would need to travel east or west, then travel north or south. Something
+			like this.
+			<br/>[PICTURE OF 2 BY 1 GRAPH]<br/>
+			An interesting note, there are lots of paths we could take to get to our destination that are actually
+			the shortest path.
+			<br/>[PICTURE OF 2 BY 1 GRAPH]<br/>
+			Here are three of the infinitely many possible examples. There are infinite paths because we don't 
+			say each city block is 400 feet, 200 feet, or even 1 foot. Each city block is infinitesimally small.
+			At each step of our journey we can move any amount in the X direction, or any amount in the Y direction,
+			just as long as we are moving towards our point and not backtracking.
+			<br/>[Contour Map]<br/>
+			If you were playing with the visualizations, you might notice we get these diamonds when we place points.
+			These make sense. Imagine we move straight up, we will get 1 unit away
+			The lines are y = C - x, where C is the distance associated with that line. Let's say C = 1.
+			So y = 1 -x, and we are aroudn point (0,0). Then, distance = 
+		</p>
+		<h3>Chessboard</h3>
+		<br/>[PICTURE OF 2 BY 1 GRAPH]<br/>
+		<h3>p-norm</h3>
+		<br/>[PICTURE OF 2 BY 1 GRAPH]<br/>
+		<h3>weighted coordinate distance</h3>
+		<br/>[PICTURE OF 2 BY 1 GRAPH]<br/>
+		<h2>Proofs for each definition (find a way to hide the solution)</h2>
+		<h2>Talk about higher dimensions</h2>
+		<h2>Examples of things that are not metrics with PROOFS</h2>
+	</body>
+</html>
