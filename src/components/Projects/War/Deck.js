@@ -12,7 +12,7 @@ class Deck{
     this.deck = [];
 
     const suits = ['Hearts', 'Spades', 'Clubs', 'Diamonds'];
-    const names = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 'T', 'J', 'Q', 'K'];
+    const names = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
     const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 
     for (let suit in suits) {

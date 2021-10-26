@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import BarChart from '../../BarChart/BarChart';
-import Card from 'react-playing-card';
+//import Card from 'react-playing-card';
+import Card from './Card/Card';
 import classes from './War.module.css';
 
 import Deck from './Deck';
-//const Deck = require('./Deck.js');
 
 
 class War extends Component {
@@ -23,8 +23,8 @@ class War extends Component {
 			hand2.push(deck.deal());
 		}
 
-		console.log("[War.js] constructor() hand1[0]: ", hand1[0]);
-		console.log("[War.js] constructor() hand1: ", hand1);
+		//console.log("[War.js] constructor() hand1[0]: ", hand1[0]);
+		//console.log("[War.js] constructor() hand1: ", hand1);
 
 		let myData = this.set_graph_data_from_hands(hand1, hand2);
 
@@ -43,7 +43,7 @@ class War extends Component {
 				}
 			}
 		}
-		console.log("[War.js] constructor() state: ", this.state)
+		//console.log("[War.js] constructor() state: ", this.state)
 	}
 
 	deal_cards = () => {
@@ -122,18 +122,18 @@ class War extends Component {
 		let hand2 = new Deck();
 		//hand1.deck = [...this.state.player1];
 		//hand2.deck = [...this.state.player2];
-		console.log("[War.js] play_round_of_war() state.player1: ", this.state.player1);
-		console.log("[War.js] play_round_of_war() state.player2: ", this.state.player2);
+		//console.log("[War.js] play_round_of_war() state.player1: ", this.state.player1);
+		//console.log("[War.js] play_round_of_war() state.player2: ", this.state.player2);
 		hand1.deck = this.state.player1;
 		hand2.deck = this.state.player2;
-		console.log("[War.js] play_round_of_war() hand1: ", hand1);
-		console.log("[War.js] play_round_of_war() hand2: ", hand2);
+		//console.log("[War.js] play_round_of_war() hand1: ", hand1);
+		//console.log("[War.js] play_round_of_war() hand2: ", hand2);
 
 		const card1 = hand1.deal();
 		const card2 = hand2.deal();
 
-		console.log("[War.js] play_round_of_war() card1: ", card1);
-		console.log("[War.js] play_round_of_war() card2: ", card2);
+		//console.log("[War.js] play_round_of_war() card1: ", card1);
+		//console.log("[War.js] play_round_of_war() card2: ", card2);
 
 		this.setState({
 			current_cards: {
@@ -169,8 +169,8 @@ class War extends Component {
 				cards.push(war2);
 				war1 = hand1.deal();
 				war2 = hand2.deal();
-				console.log("[War.js] play_round_of_war() war1 card", war1);
-				console.log("[War.js] play_round_of_war() war2 card", war2);
+				//console.log("[War.js] play_round_of_war() war1 card", war1);
+				//console.log("[War.js] play_round_of_war() war2 card", war2);
 			}
 			if (war1.value > war2.value) {
 				for (let card in cards) {
@@ -205,29 +205,75 @@ class War extends Component {
 		})
 	}
 
+	generateWinSymbol = () => {
+		var Card1Value = this.state.current_cards.card1.rank;
+		switch (this.state.current_cards.card1.rank) {
+			case "A":
+				Card1Value = 1;
+				break;
+			case "K":
+				Card1Value = 13;
+				break;
+			case "Q":
+				Card1Value = 12;
+				break;
+			case "J":
+				Card1Value = 11;
+				break;
+			case "T":
+				Card1Value = 10;
+				break;
+			default:
+				break;
+		}
+		var Card2Value = this.state.current_cards.card2.rank;
+		switch (this.state.current_cards.card2.rank) {
+			case "A":
+				Card2Value = 1;
+				break;
+			case "K":
+				Card2Value = 13;
+				break;
+			case "Q":
+				Card2Value = 12;
+				break;
+			case "J":
+				Card2Value = 11;
+				break;
+			case "T":
+				Card2Value = 10;
+				break;
+			default:
+				break;
+		}
+
+		var winSymbol = "🤷";
+		if (Card1Value > Card2Value) {
+			winSymbol = "←";
+		} else if (Card1Value < Card2Value) {
+			winSymbol = "→";
+		}
+		return winSymbol;
+	}
+
 	render () {
-		//this.convert_deck_to_graph_data(this.state.player1);
-		console.log("[War.js] render() state.data: ", this.state.data);
-
-
-		//let myData = [{ label: "Player 1", data: [{ x: 1, y: 2 }, { x: 2, y: 4 }, { x: 3, y: 1 }, { x: 4, y: 1 }, { x: 5, y: 4 }, { x: 6, y: 2 }, { x: 7, y: 0 }, { x: 8, y: 2 }, { x: 9, y: 2 }, { x: 10, y: 1 }, { x: 11, y: 2 }, { x: 12, y: 3 }, { x: 13, y: 2 } ] }, { label: "Player 2", data: [ { x: 1, y: 2 }, { x: 2, y: 0 }, { x: 3, y: 3 }, { x: 4, y: 3 }, { x: 5, y: 0 }, { x: 6, y: 2 }, { x: 7, y: 4 }, { x: 8, y: 2 }, { x: 9, y: 2 }, { x: 10, y: 3 }, { x: 11, y: 2 }, { x: 12, y: 1 }, { x: 13, y: 2 } ] }];
-		//let axes = [{ primary: true, type: 'ordinal', position: 'left' },
-		//{ position: 'bottom', type: 'linear', stacked: true }
-		//]
-		//let series = {type: 'bar'}
-				//<Chart data={myData} series={series} axes={axes} />
-		//let myData = [ { label: "Player 1", data: [ { x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 1 }, { x: 4, y: 3 }, { x: 5, y: 1 }, { x: 6, y: 2 }, { x: 7, y: 3 }, { x: 8, y: 2 }, { x: 9, y: 3 }, { x: 10, y: 3 }, { x: 11, y: 2 }, { x: 12, y: 1 }, { x: 13, y: 2 } ] }, { label: "Player 2", data: [ { x: 1, y: 3 }, { x: 2, y: 2 }, { x: 3, y: 3 }, { x: 4, y: 1 }, { x: 5, y: 3 }, { x: 6, y: 2 }, { x: 7, y: 1 }, { x: 8, y: 2 }, { x: 9, y: 1 }, { x: 10, y: 1 }, { x: 11, y: 2 }, { x: 12, y: 3 }, { x: 13, y: 2 } ] } ];
-
-		//{ A, 2, 3, 4, 5, 6, 7, 8, 9, T, J, Q, K }
-		//{S, H, C, D}
 		return (
 			<React.Fragment>
 				<div className={classes.cards}>
-					<Card rank={this.state.current_cards.card1.rank}
-					suit={this.state.current_cards.card1.suit} />
+					<Card
+						rank={this.state.current_cards.card1.rank}
+						suit={this.state.current_cards.card1.suit}
+					/>
+					<div>
 					<button className={classes.button} onClick={this.play_round_of_war}>PLAY!</button>
-					<Card rank={this.state.current_cards.card2.rank}
-					suit={this.state.current_cards.card2.suit} />
+					<div className={classes.winSymbol}>
+						{this.generateWinSymbol()}
+					</div>
+					</div>
+					<Card
+						rank={this.state.current_cards.card2.rank}
+						suit={this.state.current_cards.card2.suit}
+					/>
 				</div>
 				<BarChart data={this.state.data} />
 			</React.Fragment>
