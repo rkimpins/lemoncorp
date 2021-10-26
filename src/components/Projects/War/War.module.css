@@ -8,11 +8,21 @@
 .button {
 	display: flex;
 	justify-content: center;
-	width: 50%;
+	width: 100%;
 	height: 10%;
+	font-size: 1.5em;
 }
 
 .winSymbol {
 	font-size: 20em;
 	color:green;
+}
+.gameOver {
+	font-size: 2em;
+	color:green;
+}
+
+.ChartDiv {
+	display: flex;
+	justify-content: center;
 }

@@ -21,7 +21,6 @@ const Card = (props) => {
 	}
 	return (
 		<div className={classes.Card}>
-			{combo}
 			{image}
 		</div>
 	)

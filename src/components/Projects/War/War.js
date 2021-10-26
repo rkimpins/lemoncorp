@@ -257,6 +257,15 @@ class War extends Component {
 	}
 
 	render () {
+		var gameOver = false;
+		var gameOverText = "";
+		if (this.state.player1.length === 0) {
+			gameOverText = "Player 2 Wins!";
+			gameOver = true;
+		} else if (this.state.player2.length === 0) {
+			gameOverText = "Player 1 Wins!";
+			gameOver=true;
+		}
 		return (
 			<React.Fragment>
 				<div className={classes.cards}>
@@ -265,17 +274,23 @@ class War extends Component {
 						suit={this.state.current_cards.card1.suit}
 					/>
 					<div>
-					<button className={classes.button} onClick={this.play_round_of_war}>PLAY!</button>
-					<div className={classes.winSymbol}>
-						{this.generateWinSymbol()}
-					</div>
+						<button className={classes.button} disabled={gameOver} onClick={this.play_round_of_war}>PLAY!</button>
+						<div className={classes.winSymbol}>
+							{this.generateWinSymbol()}
+						</div>
+						<div className={classes.gameOver}>
+							{gameOverText}
+						</div>
+
 					</div>
 					<Card
 						rank={this.state.current_cards.card2.rank}
 						suit={this.state.current_cards.card2.suit}
 					/>
 				</div>
-				<BarChart data={this.state.data} />
+				<div className={classes.ChartDiv}>
+					<BarChart data={this.state.data} />
+				</div>
 			</React.Fragment>
 		)
 	}
