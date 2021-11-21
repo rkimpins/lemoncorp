@@ -38,7 +38,6 @@ const resume = () => {
 			<ul>
 				<li> Bachelor’s in Computer Science With Distinction</li>
 				<li> Dean’s Honor Roll 2018-2019</li>
-				<li> Relevant coursework: English, Writing, Statistics, software process and productmanagement</li>
 			</ul>
 			<b>Additional Online Certificates</b>
 			<ul>
@@ -53,13 +52,15 @@ const resume = () => {
 			<hr/>
 			<br/>
 
-			<b>Hard Skills</b>
-			<ul>
-				<li>Proficient in Microsoft Word, Excel, PowerPoint, and Access</li>
-				<li>Typing speed of 100 WPM / 25000 KPH</li>
-				<li>Experienced with project management methodologies such as git collaboration, agile development practices, and Scrum</li>
-				<li>Able to work with several operating systems, including Windows and Linux</li>
-			</ul>
+			<b>Programming Languages</b>
+			<ul><li>
+			Java, Typescript, HTML/CSS/Javascript, C / C++, Python, SQL, Matlab, Lisp, MIPS Architecture
+			</li></ul>
+			<b>Frameworks and Technologies</b>
+			<ul><li>
+			Git, React, Django and Rest API’s, FastAPI, Cypress, Numpy, Tensorflow, Agile Practices, Scrum, Object Oriented Design, Android Studio, MongoDB,  Linux
+			</li></ul>
+
 		</div>
 	)
 
